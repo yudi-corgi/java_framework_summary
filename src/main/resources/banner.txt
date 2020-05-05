@@ -1,0 +1,23 @@
+${AnsiColor.BRIGHT_GREEN}                                                        _____                _____                    _____
+${AnsiColor.BRIGHT_YELLOW}                                                       /\    \              /\    \                  /\    \
+${AnsiColor.BRIGHT_RED}                                                      /::\____\            /::\    \                /::\    \
+${AnsiColor.BRIGHT_CYAN}                                                     /:::/    /            \:::\    \              /::::\    \
+${AnsiColor.BRIGHT_MAGENTA}                                                    /:::/   _/___           \:::\    \            /::::::\    \
+${AnsiColor.BRIGHT_GREEN}                                                   /:::/   /\    \           \:::\    \          /:::/\:::\    \
+${AnsiColor.BRIGHT_RED}                                                  /:::/   /::\____\           \:::\    \        /:::/__\:::\    \
+${AnsiColor.BRIGHT_CYAN}                                                 /:::/   /:::/    /           /::::\    \      /::::\   \:::\    \
+${AnsiColor.BRIGHT_MAGENTA}                                                /:::/   /:::/   _/___        /::::::\    \    /::::::\   \:::\    \
+${AnsiColor.BRIGHT_GREEN}                                               /:::/___/:::/   /\    \      /:::/\:::\    \  /:::/\:::\   \:::\    \
+${AnsiColor.BRIGHT_YELLOW}                                              |:::|   /:::/   /::\____\    /:::/  \:::\____\/:::/  \:::\   \:::\____\
+${AnsiColor.BRIGHT_GREEN}                                              |:::|__/:::/   /:::/    /   /:::/    \::/    /\::/    \:::\   \::/    /
+${AnsiColor.BRIGHT_YELLOW}                                               \:::\/:::/   /:::/    /   /:::/    / \/____/  \/____/ \:::\   \/____/
+${AnsiColor.BRIGHT_CYAN}                                                \::::::/   /:::/    /   /:::/    /                    \:::\    \
+${AnsiColor.BRIGHT_RED}                                                 \::::/___/:::/    /   /:::/    /                      \:::\____\
+${AnsiColor.BRIGHT_GREEN}                                                  \:::\__/:::/    /    \::/    /                        \::/    /
+${AnsiColor.BRIGHT_YELLOW}                                                   \::::::::/    /      \/____/                          \/____/
+${AnsiColor.BRIGHT_CYAN}                                                    \::::::/    /
+${AnsiColor.BRIGHT_MAGENTA}                                                     \::::/    /
+${AnsiColor.BRIGHT_YELLOW}                                                      \::/____/
+${AnsiColor.BRIGHT_GREEN}                                                       ~~
+                                                                            ${AnsiColor.BRIGHT_YELLOW}Spring Boot: ${spring-boot.formatted-version}
+
