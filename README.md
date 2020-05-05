@@ -1,7 +1,8 @@
-![](https://img.shields.io/badge/Language-Java-blue.svg)
-![](https://img.shields.io/badge/Framework-SpringBoot-brightgreen.svg)
-# java_framework_summary
-Java 常用框架及工具整合
+
+## java_framework_summary（框架及工具汇总）
+[![](https://img.shields.io/badge/Language-Java-blue.svg)](https://github.com/1019509861/java_framework_summary)
+[![](https://img.shields.io/badge/Framework-SpringBoot-brightgreen.svg)](https://github.com/1019509861/java_framework_summary)
+[![](https://img.shields.io/badge/Database-MySql-blueviolet.svg)](https://github.com/1019509861/java_framework_summary)
 
 ### 后端框架
 - [x] SpringBoot 2.2.6
@@ -24,6 +25,6 @@ Java 常用框架及工具整合
 - [ ] cache
 - [ ] 待补充...
 
+##### :smiley:
 + 路漫漫其修远兮
 ! 吾将上下而求索
-:smiley:
