@@ -1,10 +1,29 @@
+![](https://img.shields.io/badge/Language-Java-blue)
+![](https://img.shields.io/badge/Framework-SpringBoot-brightgreen)
 # java_framework_summary
 Java 常用框架及工具整合
-目前已搭配 **SpringBoot 2.2.6**、**Mybatis**
-- [x] SpringBoot
+
+### 后端框架
+- [x] SpringBoot 2.2.6
 - [x] Mybatis
-- [x] thymeleaf
-- [x] logback
 - [ ] shiro
-- [ ] cache
 - [ ] quartz
+- [ ] 待补充...
+
+### 数据库
+- [x] MySql 5.7
+- [ ] Redis
+ 
+### 前端框架
+- [x] thymeleaf
+- [x] JQuery
+- [ ] 待补充...
+
+### 工具
+- [x] logback
+- [ ] cache
+- [ ] 待补充...
+
++ 路漫漫其修远兮
+! 吾将上下而求索
+:smiley:
