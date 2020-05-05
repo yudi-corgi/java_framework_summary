@@ -1,5 +1,5 @@
-![](https://img.shields.io/badge/Language-Java-blue)
-![](https://img.shields.io/badge/Framework-SpringBoot-brightgreen)
+![](https://img.shields.io/badge/Language-Java-blue.svg)
+![](https://img.shields.io/badge/Framework-SpringBoot-brightgreen.svg)
 # java_framework_summary
 Java 常用框架及工具整合
 
