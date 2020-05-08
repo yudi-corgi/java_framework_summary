@@ -7,8 +7,8 @@
 ### 后端框架
 - [x] SpringBoot 2.2.6
 - [x] Mybatis
-- [ ] shiro
-- [ ] quartz
+- [ ] Shiro
+- [ ] Quartz
 - [ ] 待补充...
 
 ### 数据库
@@ -16,13 +16,14 @@
 - [ ] Redis
  
 ### 前端框架
-- [x] thymeleaf
+- [x] Thymeleaf
 - [x] JQuery
 - [ ] 待补充...
 
 ### 工具
-- [x] logback
-- [ ] cache
+- [x] Logback
+- [x] Apache-commons
+- [ ] Cache
 - [ ] 待补充...
 
 ##### :smiley:
