@@ -68,6 +68,12 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- 常用工具包 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
         <!-- 测试 -->
        <dependency>
             <groupId>org.springframework.boot</groupId>
