@@ -20,7 +20,7 @@ public class TaskSchedulerConfig implements SchedulingConfigurer {
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
-
+        scheduledTaskRegistrar.setScheduler(taskScheduler());
     }
 
     @Bean
