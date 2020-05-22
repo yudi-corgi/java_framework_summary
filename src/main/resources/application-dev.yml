@@ -1,6 +1,7 @@
 server:
   port: 80
-
+  servlet:
+    context-path: /
 # 数据源配置
 spring:
   thymeleaf:
@@ -13,6 +14,33 @@ spring:
     password: root
     url: jdbc:mysql://localhost:3306/all_framework?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     driverClassName: com.mysql.cj.jdbc.Driver
+  # RabbitMQ
+  rabbitmq:
+    # 服务连接配置
+    addresses: 127.0.0.1:5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 15000
+    # 消费端配置
+    listener:
+      simple:
+        # 默认存在多少消费者
+        concurrency: 5
+        # 最多存在多少消费者
+        max-concurrency: 10
+        # 设置同时处理多少跳消息
+        prefetch: 1
+        # 消费端应答模式，auto：自动 manual：手动 none：不应大
+        acknowledge-mode: manual
+  http:
+    encoding:
+      charset: UTF-8
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+#    default-property-inclusion: non_null
+
 
 # MyBatis
 mybatis:
@@ -32,4 +60,6 @@ logging:
     path: D:/logs
     name: D:/logs/allframework
   level:
-    com.demo.allframework: debug
+    com.demo.allframework: error
+#  config: classpath:logback-spring.xml
+
