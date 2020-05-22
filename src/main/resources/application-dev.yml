@@ -61,13 +61,13 @@ mybatis:
 
 # log 日志配置
 logging:
-  pattern:
-    console: "%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger: %msg%n"
-    file: "%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger: %msg%n"
+#  pattern:
+#    console: "%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger: %msg%n"
+#    file: "%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger: %msg%n"
   file:
     path: D:/logs
     name: D:/logs/allframework
   level:
-    com.demo.allframework: error
-#  config: classpath:logback-spring.xml
+    com.demo.allframework: debug
+  config: classpath:logback-spring.xml
 

@@ -81,7 +81,7 @@
     </springProfile>-->
 
     <!-- 必选结点，用来指定日志输出级别，默认：Debug -->
-    <root level="debug">
+    <root level="info">
         <!-- 引用 <appender> 结点，标识该 appender 添加到当前 Logger -->
         <appender-ref ref="console1"/>
         <!--<appender-ref ref="console2"/>-->

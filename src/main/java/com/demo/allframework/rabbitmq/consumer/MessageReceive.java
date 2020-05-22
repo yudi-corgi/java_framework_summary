@@ -23,12 +23,12 @@ import java.util.Map;
 public class MessageReceive {
 
 
-    @RabbitListener(bindings = @QueueBinding(
+    /*@RabbitListener(bindings = @QueueBinding(
             value = @Queue(value="person-queue",durable = "true"),
             exchange = @Exchange(name = "person-exchange", type = "topic"),
             key = "person.*"
         )
-    )
+    )*/
     @RabbitHandler
     public void personMessageReceive(@Payload Person person,
                                      @Headers Map<String,Object> headers,
