@@ -20,6 +20,10 @@
 - [x] JQuery
 - [ ] 待补充...
 
+### 中间件
+- [x] RabbitMQ：新增 RabbitMQ，但只是小小调用，生产消费耦合在一个应用中，实际应当拆分为两个服务.
+- [ ] 待补充...
+
 ### 工具
 - [x] Logback
 - [x] Apache-commons
