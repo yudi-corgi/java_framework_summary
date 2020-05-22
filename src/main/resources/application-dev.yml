@@ -33,6 +33,14 @@ spring:
         prefetch: 1
         # 消费端应答模式，auto：自动 manual：手动 none：不应大
         acknowledge-mode: manual
+    # 采用消息确认模式，开启后异步等待消息响应结果
+    # 表示开启消息回调，如果交换机匹配不到队列，则调用 ReturnCallBack
+    publisher-returns: true
+    # 表示开启消息回调，如果消息没有投递到 MQ Broker，即交换机上，则调用 ConfirmCallBack
+    publisher-confirm-type: correlated
+    template:
+      # 表示交换机无法通过自身类型与路由键匹配到队列时，通过回调函数返回消息给生产者，false：消息丢弃
+      mandatory: true
   http:
     encoding:
       charset: UTF-8

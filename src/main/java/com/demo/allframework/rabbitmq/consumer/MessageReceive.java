@@ -37,6 +37,10 @@ public class MessageReceive {
         System.out.println("-----------------开始消费信息，进行业务操作-------------------");
         System.out.println("Person 信息："+ person.getName());
 
+        //设置 Qos 限流策略，
+        //参数：单条消息大小（0 不限制） - 每次处理消息数量 - 是否为 consumer 级别，false 表示当前 channel 有效
+        channel.basicQos(0,1,false);
+
         // 消费者应答，配置文件设置了 acknowledge-mode: manual（手动），表示消息已被消费
         // 参数一：  参数二：表示是否批量应答
         Long deliveryTag = (Long) headers.get(AmqpHeaders.DELIVERY_TAG);
