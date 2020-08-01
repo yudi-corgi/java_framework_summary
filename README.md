@@ -14,7 +14,7 @@
 ### 数据库
 - [x] MySql 5.7
 - [ ] Redis
- 
+
 ### 前端框架
 - [x] Thymeleaf
 - [x] JQuery
@@ -29,7 +29,3 @@
 - [x] Apache-commons
 - [ ] Cache
 - [ ] 待补充...
-
-##### :smiley:
-+ 路漫漫其修远兮
-! 吾将上下而求索
