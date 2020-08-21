@@ -95,4 +95,11 @@ public class SysUserController {
         return "查询成功";
     }
 
+    @GetMapping("test")
+    @ResponseBody
+    public String test(@RequestParam(required = false)String name){
+        System.out.println(StringUtils.isEmpty(name)?"null":name);
+        return "3Q";
+    }
+
 }
