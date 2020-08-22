@@ -1,8 +1,9 @@
 package com.demo.allframework.user.service.impl;
 
-import com.demo.allframework.user.entity.SysUser;
 import com.demo.allframework.user.dao.SysUserDao;
+import com.demo.allframework.user.entity.SysUser;
 import com.demo.allframework.user.service.SysUserService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +29,11 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public SysUser queryById(Long id) {
         return this.sysUserDao.queryById(id);
+    }
+
+    @Override
+    public List<SysUser> queryAll(SysUser user) {
+        return this.sysUserDao.queryAll(user);
     }
 
     /**
@@ -74,4 +80,11 @@ public class SysUserServiceImpl implements SysUserService {
     public boolean deleteById(Long id) {
         return this.sysUserDao.deleteById(id) > 0;
     }
+
+    @Cacheable(cacheNames = {"cache1"},key = "#root.methodName")
+    public String cache(){
+        System.out.println("结果已被保存，第一次会输出，第二次开始不会");
+        return "The result is saved!";
+    }
+
 }

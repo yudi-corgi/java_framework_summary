@@ -23,6 +23,13 @@ public interface SysUserService {
     SysUser queryById(Long id);
 
     /**
+     * 列表查询
+     * @param user
+     * @return
+     */
+    List<SysUser> queryAll(SysUser user);
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置
@@ -55,4 +62,5 @@ public interface SysUserService {
      */
     boolean deleteById(Long id);
 
+    String cache();
 }

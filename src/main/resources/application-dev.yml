@@ -29,9 +29,9 @@ spring:
         concurrency: 5
         # 最多存在多少消费者
         max-concurrency: 10
-        # 设置同时处理多少跳消息
+        # 设置同时处理多少条消息
         prefetch: 1
-        # 消费端应答模式，auto：自动 manual：手动 none：不应大
+        # 消费端应答模式，auto：自动 manual：手动 none：不应答
         acknowledge-mode: manual
     # 采用消息确认模式，开启后异步等待消息响应结果
     # 表示开启消息回调，如果交换机匹配不到队列，则调用 ReturnCallBack
