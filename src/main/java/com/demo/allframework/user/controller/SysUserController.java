@@ -3,7 +3,6 @@ package com.demo.allframework.user.controller;
 import com.demo.allframework.user.entity.SysUser;
 import com.demo.allframework.user.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,7 +54,7 @@ public class SysUserController {
     /**
      * 查询用户列表
      * @param user
-     * @param cache condition 通过 spEL 获取参数值，标识是否缓存数据
+     * @param cache condition 通过 SpEL 获取参数值，标识是否缓存数据
      * @return List
      */
     @GetMapping("queryAll")
