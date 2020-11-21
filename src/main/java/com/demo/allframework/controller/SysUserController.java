@@ -1,7 +1,7 @@
-package com.demo.allframework.user.controller;
+package com.demo.allframework.controller;
 
-import com.demo.allframework.user.entity.SysUser;
-import com.demo.allframework.user.service.SysUserService;
+import com.demo.allframework.entity.SysUser;
+import com.demo.allframework.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

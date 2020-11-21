@@ -1,6 +1,7 @@
-package com.demo.allframework.user.service;
+package com.demo.allframework.service;
 
-import com.demo.allframework.user.entity.SysUser;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.demo.allframework.entity.SysUser;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * @since 2020-04-28 22:57:27
  */
 @Service
-public interface SysUserService {
+public interface SysUserService extends IService<SysUser> {
 
     /**
      * 通过ID查询单条数据

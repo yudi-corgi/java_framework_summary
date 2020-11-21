@@ -1,8 +1,9 @@
-package com.demo.allframework.user.service.impl;
+package com.demo.allframework.service.impl;
 
-import com.demo.allframework.user.entity.SysUser;
-import com.demo.allframework.user.dao.SysUserDao;
-import com.demo.allframework.user.service.SysUserService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.demo.allframework.dao.SysUserMapper;
+import com.demo.allframework.entity.SysUser;
+import com.demo.allframework.service.SysUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,9 +16,9 @@ import java.util.List;
  * @since 2020-04-28 22:57:28
  */
 @Service("sysUserService")
-public class SysUserServiceImpl implements SysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
     @Resource
-    private SysUserDao sysUserDao;
+    private SysUserMapper sysUserMapper;
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +28,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public SysUser queryById(Long id) {
-        return this.sysUserDao.queryById(id);
+        return this.sysUserMapper.queryById(id);
     }
 
     /**
@@ -39,7 +40,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public List<SysUser> queryAllByLimit(int offset, int limit) {
-        return this.sysUserDao.queryAllByLimit(offset, limit);
+        return this.sysUserMapper.queryAllByLimit(offset, limit);
     }
 
     /**
@@ -50,7 +51,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public int insert(SysUser sysUser) {
-        return sysUserDao.insert(sysUser);
+        return sysUserMapper.insert(sysUser);
     }
 
     /**
@@ -61,7 +62,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public int update(SysUser sysUser) {
-        return sysUserDao.update(sysUser);
+        return sysUserMapper.update(sysUser);
     }
 
     /**
@@ -72,6 +73,6 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public boolean deleteById(Long id) {
-        return this.sysUserDao.deleteById(id) > 0;
+        return this.sysUserMapper.deleteById(id) > 0;
     }
 }

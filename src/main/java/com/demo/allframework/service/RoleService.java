@@ -1,6 +1,7 @@
-package com.demo.allframework.role.service;
+package com.demo.allframework.service;
 
-import com.demo.allframework.role.entity.Role;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.demo.allframework.entity.Role;
 import org.springframework.stereotype.Service;
 
 /**
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
  * @date 2020/5/2 17:45
  */
 @Service
-public interface RoleService {
+public interface RoleService extends IService<Role> {
 
-    void insert(Role role);
 }
