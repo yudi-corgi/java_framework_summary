@@ -1,6 +1,6 @@
-package com.demo.allframework.user.dao;
+package com.demo.allframework.dao;
 
-import com.demo.allframework.user.entity.SysUser;
+import com.demo.allframework.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

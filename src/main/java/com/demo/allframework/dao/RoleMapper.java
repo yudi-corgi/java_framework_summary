@@ -1,6 +1,6 @@
-package com.demo.allframework.role.dao;
+package com.demo.allframework.dao;
 
-import com.demo.allframework.role.entity.Role;
+import com.demo.allframework.entity.Role;
 
 /**
  * @author YUDI
