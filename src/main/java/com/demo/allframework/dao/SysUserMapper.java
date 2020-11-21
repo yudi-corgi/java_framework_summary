@@ -1,6 +1,7 @@
-package com.demo.allframework.user.dao;
+package com.demo.allframework.dao;
 
-import com.demo.allframework.user.entity.SysUser;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.demo.allframework.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @since 2020-04-28 22:57:25
  */
 @Repository
-public interface SysUserDao {
+public interface SysUserMapper extends BaseMapper<SysUser> {
 
     /**
      * 通过ID查询单条数据

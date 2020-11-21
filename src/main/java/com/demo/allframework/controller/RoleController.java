@@ -1,7 +1,7 @@
-package com.demo.allframework.role.controller;
+package com.demo.allframework.controller;
 
-import com.demo.allframework.role.entity.Role;
-import com.demo.allframework.role.service.RoleService;
+import com.demo.allframework.entity.Role;
+import com.demo.allframework.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +27,7 @@ public class RoleController {
         role.setRoleKey("admin");
         role.setRoleSort(1);
         role.setStatus("0");
-        roleService.insert(role);
+        roleService.save(role);
         System.out.println(role.getRoleId());
         return "插入成功";
     }

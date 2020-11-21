@@ -51,14 +51,28 @@ spring:
 
 
 # MyBatis
-mybatis:
+mybatis-plus:
   # 搜索指定包别名
   typeAliasesPackage: com.demo.allframework
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapperLocations: classpath:mybatis/**/*Dao.xml
-  # 加载全局的配置文件
-  configLocation: classpath:mybatis/mybatis-config.xml
-
+  # 加载全局的配置文件，可以选择在 mybatis-config 配置并指定文件
+  # configLocation: classpath:mybatis/mybatis-config.xml
+  # 也可以在 application 直接配置
+  configuration:
+    # 驼峰式命名
+    map-underscore-to-camel-case: true
+    # 全局映射器启用缓存
+    cache-enabled: true
+    # 允许 JDBC 支持自动生成主键
+    use-generated-keys: true
+    # 配置默认的执行器
+    default-executor-type: reuse
+    # 指定 MyBatis 所用日志的具体实现
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      id-type: auto   # 数据库 ID 自增
 # log 日志配置
 logging:
 #  pattern:

@@ -1,4 +1,4 @@
-package com.demo.allframework.user.entity;
+package com.demo.allframework.entity;
 
 import lombok.Data;
 
