@@ -12,7 +12,6 @@ import java.util.List;
  * @author makejava
  * @since 2020-04-28 22:57:27
  */
-@Service
 public interface SysUserService extends IService<SysUser> {
 
     /**

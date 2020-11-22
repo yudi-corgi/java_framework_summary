@@ -1,8 +1,7 @@
-package com.demo.allframework.dao;
+package com.demo.allframework.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.demo.allframework.entity.Role;
-import org.springframework.stereotype.Repository;
 
 /**
  * @author YUDI

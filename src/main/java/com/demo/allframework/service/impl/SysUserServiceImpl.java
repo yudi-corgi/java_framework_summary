@@ -1,16 +1,10 @@
 package com.demo.allframework.service.impl;
 
-<<<<<<< HEAD:src/main/java/com/demo/allframework/user/service/impl/SysUserServiceImpl.java
-import com.demo.allframework.user.dao.SysUserDao;
-import com.demo.allframework.user.entity.SysUser;
-import com.demo.allframework.user.service.SysUserService;
 import org.springframework.cache.annotation.Cacheable;
-=======
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.demo.allframework.dao.SysUserMapper;
+import com.demo.allframework.mapper.SysUserMapper;
 import com.demo.allframework.entity.SysUser;
 import com.demo.allframework.service.SysUserService;
->>>>>>> dev:src/main/java/com/demo/allframework/service/impl/SysUserServiceImpl.java
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -40,7 +34,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public List<SysUser> queryAll(SysUser user) {
-        return this.sysUserDao.queryAll(user);
+        return this.sysUserMapper.queryAll(user);
     }
 
     /**

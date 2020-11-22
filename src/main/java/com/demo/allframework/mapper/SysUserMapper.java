@@ -1,4 +1,4 @@
-package com.demo.allframework.dao;
+package com.demo.allframework.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.demo.allframework.entity.SysUser;

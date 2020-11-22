@@ -9,7 +9,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * @author CDY
  */
 @SpringBootApplication
-@MapperScan("com.demo.allframework.*.dao")
+@MapperScan("com.demo.allframework.mapper")
 public class AllframeworkApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
