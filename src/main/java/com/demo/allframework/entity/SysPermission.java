@@ -1,0 +1,21 @@
+package com.demo.allframework.entity;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * 权限信息实体
+ * @author YUDI
+ * @date 2020/11/23 23:14
+ */
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class SysPermission extends BaseEntity{
+
+    private Long permId;
+    private String permCode;
+    private String permDesc;
+    private String url;
+    private int orderNum;
+
+}

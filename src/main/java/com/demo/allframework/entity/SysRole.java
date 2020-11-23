@@ -1,26 +1,22 @@
 package com.demo.allframework.entity;
 
 import lombok.Data;
-
-import java.util.Date;
+import lombok.EqualsAndHashCode;
 
 /**
+ * 角色信息实体
  * @author YUDI
  * @date 2020/5/2 17:37
  */
 @Data
-public class Role {
+@EqualsAndHashCode(callSuper = true)
+public class SysRole extends BaseEntity{
 
     private Long roleId;
     private String roleName;
     private String roleKey;
     private int roleSort;
     private String status;
-    private String createBy;
-    private Date createTime;
-    private String updateBy;
-    private Date updateTime;
-    private String remark;
 
 
 }

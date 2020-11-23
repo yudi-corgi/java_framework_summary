@@ -8,8 +8,8 @@ import java.io.Serializable;
 /**
  * 用户信息表(SysUser)实体类
  *
- * @author makejava
- * @since 2020-04-28 22:57:16
+ * @author CDY
+ * @date 2020-04-28
  */
 @Data
 public class SysUser implements Serializable {

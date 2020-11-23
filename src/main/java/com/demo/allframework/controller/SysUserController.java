@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Slf4j
 @Controller
-@RequestMapping("sysUser")
+@RequestMapping("user")
 public class SysUserController {
 
     @Resource

@@ -2,6 +2,11 @@ server:
   port: 80
   servlet:
     context-path: /
+    session:
+      timeout: 30   # session 超时时间
+      #cookie:
+        #http-only: true   # true 表示浏览器脚本无法访问 cookie
+        #secure: true      # true 表示 cookie 仅通过 https 传输
 # 数据源配置
 spring:
   thymeleaf:
