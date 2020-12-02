@@ -1,0 +1,30 @@
+server:
+  port: 80
+
+# 数据源配置
+spring:
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/all_framework?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimeZone=UTC
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+# mybatis 配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.demo.allframework
+  # 配置 Mapper 扫描，找到所有 mapper.xml 映射文件
+  mapperLocations: classpath:mybatis/**/*Dao.xml
+  # 加载全局配置文件
+  configLocation: classpath:mybatis/mybatis-config.xml
+
+# log 配置
+logging:
+  level:
+    com.demo.allframework: debug
+    org.springframework: warn

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 全局映射器启用缓存 -->
+        <setting name="cacheEnabled" value="true" />
+        <!-- 配置默认的执行器 -->
+        <setting name="defaultExecutorType" value="REUSE" />
+        <!-- 驼峰式命名 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 允许JDBC 生成主键。需要驱动器支持。如果设为了true，这个设置将强制使用被生成的主键，
+        有一些驱动器不兼容不过仍然可以执行。  default:false  -->
+        <setting name="useGeneratedKeys" value="true"/>
+
+    </settings>
+</configuration>
