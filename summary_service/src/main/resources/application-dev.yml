@@ -52,15 +52,46 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  application:
+    name: summary-service
 #    default-property-inclusion: non_null
 
+# Eureka
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8080/eureka
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}
+
+# feign 配置
+#feign:
+#  hystrix:
+#    enabled: true
+#  compression:
+#    request:
+#      enabled: true
+#      # mime-types[0]: text/xml
+#      # mime-types[1]: application/xml
+#      mime-types: application/json
+#      min-request-size: 2048
+#    response:
+#      enabled: true
+
+# endpoint 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,info,env
 
 # MyBatis
 mybatis-plus:
   # 搜索指定包别名
   typeAliasesPackage: com.demo.allframework
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
-  mapperLocations: classpath:mybatis/**/*Dao.xml
+  mapperLocations: classpath:mybatis/mapper/*mapper.xml
   # 加载全局的配置文件，可以选择在 mybatis-config 配置并指定文件
   # configLocation: classpath:mybatis/mybatis-config.xml
   # 也可以在 application 直接配置

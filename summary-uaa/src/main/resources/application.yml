@@ -1,0 +1,86 @@
+spring:
+  application:
+    name: uaa-server
+  main:
+    allow-bean-definition-overriding: true
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/all_framework?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 9091
+  servlet:
+    context-path: /uaa
+  # tomcat:
+    # 设定 remote IP 的 Header，如果remoteIpHeader有值，则设置为RemoteIpValve
+    # remote-ip-header: x-forwarded-for
+    # 设定 Header 包含的协议，通常是 X-Forwarded-Proto，如果remoteIpHeader有值，则将设置为RemoteIpValve.
+    # protocol-header: x-forwarded-proto
+
+# feign 配置
+feign:
+  hystrix:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      # mime-types[0]: text/xml
+      # mime-types[1]: application/xml
+      mime-types: application/json
+      min-request-size: 2048
+    response:
+      enabled: true
+
+# endpoint 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,info,env
+
+# MyBatis
+mybatis-plus:
+  # 搜索指定包别名
+  typeAliasesPackage: com.demo.allframework.uaa
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath:mapper/*mapper.xml
+  # 加载全局的配置文件，可以选择在 mybatis-config 配置并指定文件
+  # configLocation: classpath:mybatis/mybatis-config.xml
+  # 也可以在 application 直接配置
+  configuration:
+    # 驼峰式命名
+    map-underscore-to-camel-case: true
+    # 全局映射器启用缓存
+    cache-enabled: true
+    # 允许 JDBC 支持自动生成主键
+    use-generated-keys: true
+    # 配置默认的执行器
+    default-executor-type: reuse
+    # 指定 MyBatis 所用日志的具体实现
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      id-type: auto   # 数据库 ID 自增
+
+# logging
+logging:
+  level:
+    root: debug
+    org.springframework.web: info
+  pattern:
+    console: "%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger: %msg%n"
+
