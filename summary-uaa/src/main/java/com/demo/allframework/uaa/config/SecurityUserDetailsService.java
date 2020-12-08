@@ -1,13 +1,13 @@
-package com.demo.allframework.config;
+package com.demo.allframework.uaa.config;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.demo.allframework.entity.SysPermission;
-import com.demo.allframework.entity.SysRole;
-import com.demo.allframework.entity.SysUser;
-import com.demo.allframework.service.SysPermService;
-import com.demo.allframework.service.SysRoleService;
-import com.demo.allframework.service.SysUserService;
+import com.demo.allframework.uaa.entity.SysPermission;
+import com.demo.allframework.uaa.entity.SysRole;
+import com.demo.allframework.uaa.entity.SysUser;
+import com.demo.allframework.uaa.service.SysPermService;
+import com.demo.allframework.uaa.service.SysRoleService;
+import com.demo.allframework.uaa.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
