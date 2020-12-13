@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -25,8 +26,8 @@ import java.util.List;
 @Service
 public class SecurityUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private SysUserService userService;
+    @Resource
+    private SysUserService sysUserService;
     @Autowired
     private SysRoleService roleService;
     @Autowired
@@ -41,7 +42,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
         // 数据库获取用户信息，手动封装 UserDetails 对象
         LambdaQueryWrapper<SysUser> lambdaQuery = Wrappers.lambdaQuery();
         lambdaQuery.eq(SysUser::getLoginName,username);
-        SysUser user = userService.getOne(lambdaQuery);
+        SysUser user = sysUserService.getOne(lambdaQuery);
         if(user == null){
             // 若为 null，返回后由 DaoAuthenticationProvider 处理
             return null;

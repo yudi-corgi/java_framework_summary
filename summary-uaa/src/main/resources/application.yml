@@ -32,18 +32,18 @@ server:
     # protocol-header: x-forwarded-proto
 
 # feign 配置
-feign:
-  hystrix:
-    enabled: true
-  compression:
-    request:
-      enabled: true
-      # mime-types[0]: text/xml
-      # mime-types[1]: application/xml
-      mime-types: application/json
-      min-request-size: 2048
-    response:
-      enabled: true
+#feign:
+#  hystrix:
+#    enabled: true
+#  compression:
+#    request:
+#      enabled: true
+#      # mime-types[0]: text/xml
+#      # mime-types[1]: application/xml
+#      mime-types: application/json
+#      min-request-size: 2048
+#    response:
+#      enabled: true
 
 # endpoint 配置
 management:
@@ -79,7 +79,7 @@ mybatis-plus:
 # logging
 logging:
   level:
-    root: debug
+#    root: debug
     org.springframework.web: info
   pattern:
     console: "%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger: %msg%n"

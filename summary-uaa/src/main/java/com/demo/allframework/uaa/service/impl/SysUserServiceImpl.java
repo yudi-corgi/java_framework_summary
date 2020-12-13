@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.demo.allframework.uaa.entity.SysUser;
 import com.demo.allframework.uaa.mapper.SysUserMapper;
 import com.demo.allframework.uaa.service.SysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,9 +16,10 @@ import java.util.List;
  * @author makejava
  * @since 2020-04-28 22:57:28
  */
-@Service("sysUserService")
+@Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
-    @Resource
+
+    @Autowired
     private SysUserMapper sysUserMapper;
 
     /**

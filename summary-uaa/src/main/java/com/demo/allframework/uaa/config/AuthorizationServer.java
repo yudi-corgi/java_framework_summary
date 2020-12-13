@@ -33,6 +33,8 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter{
     private ClientDetailsService clientDetailsService;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthorizationCodeServices authorizationCodeServices;
 
     /**
      * 注册授权码授权类型服务实例，设置授权码存取方式
@@ -56,9 +58,9 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter{
                 .secret(new BCryptPasswordEncoder().encode("secret"))  // 客户端密钥：secret
                 .resourceIds("res1")    // 资源列表
                 // 当前客户端允许的授权类型
-                .authorizedGrantTypes("authorization_code","password","client_credentials","implicit","refresh_toke")
+                .authorizedGrantTypes("authorization_code","password","client_credentials","implicit","refresh_token")
                 .scopes("all")  // 授权范围
-                .autoApprove(false)  // 授权码类型时 false 表示会跳转授权页面，true 则不跳转
+                .autoApprove(true)  // 授权码类型时 false 表示会跳转授权页面，true 则不跳转
                 // 验证回调地址
                 .redirectUris("http://www.baidu.com");
                 // .and().withClient()  配置多个客户端详情可通过 and() 连接
@@ -90,7 +92,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter{
                 // 设置认证管理器实例
                 .authenticationManager(authenticationManager)
                 // 授权码授权类型服务
-                .authorizationCodeServices(authorizationCodeServices())
+                .authorizationCodeServices(authorizationCodeServices)
                 // 令牌服务
                 .tokenServices(tokenServices())
                 // 令牌端点的请求方式

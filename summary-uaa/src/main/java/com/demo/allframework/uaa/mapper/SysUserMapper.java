@@ -2,6 +2,7 @@ package com.demo.allframework.uaa.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.demo.allframework.uaa.entity.SysUser;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-04-28 22:57:25
  */
+@Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
     /**

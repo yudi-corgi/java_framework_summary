@@ -93,7 +93,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static void main(String[] args) {
         // 加密+加盐，是通过 base64 编码以及添加 $ 等字符串组成
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encode = encoder.encode("123456");
+        String encode = encoder.encode("secret");
+        System.out.println(encode);
         String hashpw = BCrypt.hashpw("admin", BCrypt.gensalt());
         System.out.println(hashpw);
         System.out.println(hashpw.length());
