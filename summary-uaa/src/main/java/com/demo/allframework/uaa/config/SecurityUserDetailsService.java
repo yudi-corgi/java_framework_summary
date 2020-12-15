@@ -49,7 +49,8 @@ public class SecurityUserDetailsService implements UserDetailsService {
         }
         String[] roleArr = loadRoleByUserId(user.getId());
         String[] permArr = loadPermByUserId(user.getId());
-        return User.withUsername(user.getName()).password(user.getPassword()).authorities(permArr).roles(roleArr).build();
+        // return User.withUsername(user.getName()).password(user.getPassword()).authorities(permArr).roles(roleArr).build();
+        return User.withUsername(user.getName()).password(user.getPassword()).authorities(permArr).build();
     }
 
     private String[] loadRoleByUserId(Long userId){

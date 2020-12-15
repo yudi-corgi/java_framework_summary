@@ -10,10 +10,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  */
 @SpringBootApplication
 @MapperScan("com.demo.allframework.mapper")
-public class AllframeworkApplication extends SpringBootServletInitializer {
+public class SummaryServiceApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(AllframeworkApplication.class);
+        SpringApplication app = new SpringApplication(SummaryServiceApplication.class);
         // app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
     }
