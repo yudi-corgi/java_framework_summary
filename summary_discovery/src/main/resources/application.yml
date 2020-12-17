@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: summary-discovery
+server:
+  port: 10010
+eureka:
+  server:
+    # 关闭服务器自我保护，客户端心跳检测15分钟内错误达到 80% 服务会保护
+    enable-self-preservation: false
+    # 使用只读的 response cache，默认 true
+    use-read-only-response-cache: true
+    # 清理无效节点（服务）的间隔（单位毫秒，默认是60*1000）
+    eviction-interval-timer-in-ms: 10000
+  client:
+    # 注册中心本身不作为一个服务进行注册
+    register-with-eureka: false
+    # 表示是否从 Eureka Server 获取注册的服务信息
+    fetch-registry: true
+    # client 服务实例信息向 Eureka Server 同步的周期（默认30s）
+    instance-info-replication-interval-seconds: 10
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka/
+  instance:
+    hostname: ${spring.cloud.client.ip‐address}
+    # 以 IP 地址注册到服务中心
+    prefer-ip-address: true
+    # 自定义 InstanceID 添加 IP 地址，服务名：IP：端口
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}

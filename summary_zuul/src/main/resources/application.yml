@@ -1,0 +1,81 @@
+spring:
+  application:
+    name: summary-zuul
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 9081
+
+# Zuul 网关配置
+zuul:
+  # 为所有路径添加前缀
+  # prefix:
+  # 启动路由重试
+  retryable: true
+  # Zuul 默认为所有服务提供映射机制进行路由，此处去除了所有服务的默认映射，若针对某服务则写名称
+  # 不配置的话，即使下面的 routes 只配置了两个服务，若有第三个服务存在，依旧能被映射访问
+  ignored-services: *
+  # 忽略某个路由路径
+  # ignored-patterns: *
+  # 网关地址重定向，默认情况下，重定向的地址是具体的服务实例的地址，而不是API网关的跳转地址
+  # 未防止服务地址暴露，配置如下：表示API网关在进行请求路由转发前为请求设置Host头信息。
+  add-host-header: true
+  # 设置哪些敏感 header 信息无法经过API网关进行传递
+  # 配置 * 表示所有服务间调用时 header 信息隐藏
+  # 若写 token、Authorization 等名称则指隐藏该头信息参数，为空则不作任何隐藏
+  # 过滤客户端请求的头信息，即客户端请求携带的头信息若匹配则不会传递给下游服务
+  sensitive-headers: *
+  # 效果同上，但隐藏的是服务间互相调用时的头信息
+  # 即客户端请求携带的头信息会传递给下游服务，但下游服务再转发则不会传递
+  # ignored-headers:
+  # 网关路由，stripPrefix 表示转发是否去除前缀
+  # /uaa/** 的路径会路由到 uaa-service，/sys/** 会路由到 summary-service，两个名称都是服务 application.name
+  routes:
+    uaa-service:
+      stripPrefix: false
+      path: /uaa/**
+    summary-service:
+      stripPrefix: false
+      path: /sys/**
+
+# Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10010/eureka
+  instance:
+    # 以 IP 地址注册到服务中心
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+# feign 配置
+feign:
+  hystrix:
+    enabled: true
+  # 请求响应启用 GZIP 压缩，开启压缩可以有效节约网络资源
+  # 但会增加CPU压力，因此最小压缩的文档大小需适当调整
+  compression:
+    request:
+      enabled: true
+      # 压缩类型
+      mime-types: text/xml, application/xml, application/json
+      # 压缩文档最小容量
+      min-request-size: 2048
+    response:
+      enabled: true
+
+# endpoint 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,info,env
+
+# logging
+logging:
+  level:
+    root: info
+    org.springframework.web: info
+  pattern:
+    console: "%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger: %msg%n"
+

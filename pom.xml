@@ -19,6 +19,8 @@
     <modules>
         <module>summary_service</module>
         <module>summary-uaa</module>
+        <module>summary_discovery</module>
+        <module>summary_zuul</module>
     </modules>
 
     <properties>

@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * 用户信息表(SysUser)实体类
  *
- * @author CDY
+ * @author YUDi
  * @date 2020-04-28
  */
 @Data

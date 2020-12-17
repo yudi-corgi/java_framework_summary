@@ -31,19 +31,31 @@ server:
     # 设定 Header 包含的协议，通常是 X-Forwarded-Proto，如果remoteIpHeader有值，则将设置为RemoteIpValve.
     # protocol-header: x-forwarded-proto
 
+# Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10010/eureka
+  instance:
+    # 以 IP 地址注册到服务中心
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
 # feign 配置
-#feign:
-#  hystrix:
-#    enabled: true
-#  compression:
-#    request:
-#      enabled: true
-#      # mime-types[0]: text/xml
-#      # mime-types[1]: application/xml
-#      mime-types: application/json
-#      min-request-size: 2048
-#    response:
-#      enabled: true
+feign:
+  hystrix:
+    enabled: true
+  # 请求响应启用 GZIP 压缩，开启压缩可以有效节约网络资源
+  # 但会增加CPU压力，因此最小压缩的文档大小需适当调整
+  compression:
+    request:
+      enabled: true
+      # 压缩类型
+      mime-types: text/xml, application/xml, application/json
+      # 压缩文档最小容量
+      min-request-size: 2048
+    response:
+      enabled: true
 
 # endpoint 配置
 management:

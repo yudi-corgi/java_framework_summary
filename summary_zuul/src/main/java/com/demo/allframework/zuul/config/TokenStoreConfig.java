@@ -1,4 +1,4 @@
-package com.demo.allframework.uaa.config;
+package com.demo.allframework.zuul.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +32,7 @@ public class TokenStoreConfig {
     @Bean
     public JwtAccessTokenConverter accessTokenConverter(){
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        //设置对称秘钥，通过密钥生成令牌，资源服务器使用该秘钥来验证
+        //对称秘钥，资源服务器使用该秘钥来验证
         converter.setSigningKey(SECRET);
         return converter;
     }
