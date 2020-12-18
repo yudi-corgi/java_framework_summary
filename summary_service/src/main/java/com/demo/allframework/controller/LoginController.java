@@ -1,5 +1,6 @@
 package com.demo.allframework.controller;
 
+import com.demo.allframework.dto.UserDto;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -60,7 +61,8 @@ public class LoginController {
     @GetMapping("/t/t1")
     @ResponseBody
     public String t1(){
-        return getUsername() + " 访问资源 t1";
+        UserDto principal = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return getUsername() + ":" + principal.getName() + " 访问资源 t1";
     }
 
     /**
