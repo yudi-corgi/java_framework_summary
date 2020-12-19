@@ -49,10 +49,13 @@ public class AuthFilter extends ZuulFilter {
     @SneakyThrows
     @Override
     public Object run() throws ZuulException {
+        // 获取请求上下文
+        RequestContext currentContext = RequestContext.getCurrentContext();
         // 从 SecurityContext 安全上下文获取令牌信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // 令牌类型不属于 OAuth2Authentication 时，拒绝请求
         if(!(authentication instanceof OAuth2Authentication)){
+            // currentContext.setSendZuulResponse(false);
             return null;
         }
         OAuth2Authentication oAuth2Authentication = (OAuth2Authentication) authentication;
@@ -72,8 +75,6 @@ public class AuthFilter extends ZuulFilter {
             jsonToken.put("authorities",authorities);
         }
 
-        // 获取请求上下文
-        RequestContext currentContext = RequestContext.getCurrentContext();
         // 将 token 放在请求中并路由到微服务
         String json_token = new ObjectMapper().writeValueAsString(jsonToken);
         currentContext.addZuulRequestHeader("json-token", Base64Util.encodeUTF8StringBase64(json_token));

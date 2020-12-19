@@ -14,7 +14,7 @@ zuul:
   retryable: true
   # Zuul 默认为所有服务提供映射机制进行路由，此处去除了所有服务的默认映射，若针对某服务则写名称
   # 不配置的话，即使下面的 routes 只配置了两个服务，若有第三个服务存在，依旧能被映射访问
-  ignored-services: *
+  ignored-services: "*"
   # 忽略某个路由路径
   # ignored-patterns: *
   # 网关地址重定向，默认情况下，重定向的地址是具体的服务实例的地址，而不是API网关的跳转地址
@@ -24,14 +24,14 @@ zuul:
   # 配置 * 表示所有服务间调用时 header 信息隐藏
   # 若写 token、Authorization 等名称则指隐藏该头信息参数，为空则不作任何隐藏
   # 过滤客户端请求的头信息，即客户端请求携带的头信息若匹配则不会传递给下游服务
-  sensitive-headers: *
+  sensitive-headers: "*"
   # 效果同上，但隐藏的是服务间互相调用时的头信息
   # 即客户端请求携带的头信息会传递给下游服务，但下游服务再转发则不会传递
   # ignored-headers:
   # 网关路由，stripPrefix 表示转发是否去除前缀
   # /uaa/** 的路径会路由到 uaa-service，/sys/** 会路由到 summary-service，两个名称都是服务 application.name
   routes:
-    uaa-service:
+    uaa-server:
       stripPrefix: false
       path: /uaa/**
     summary-service:
@@ -63,6 +63,8 @@ feign:
       min-request-size: 2048
     response:
       enabled: true
+  httpclient:
+    connection-timeout: 10000
 
 # endpoint 配置
 management:

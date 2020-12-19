@@ -8,6 +8,8 @@ import com.demo.allframework.uaa.entity.SysUser;
 import com.demo.allframework.uaa.service.SysPermService;
 import com.demo.allframework.uaa.service.SysRoleService;
 import com.demo.allframework.uaa.service.SysUserService;
+import lombok.SneakyThrows;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +36,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
     private SysPermService permService;
 
 
+    @SneakyThrows
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 通过 Security 的 User 对象构建
@@ -47,10 +50,11 @@ public class SecurityUserDetailsService implements UserDetailsService {
             // 若为 null，返回后由 DaoAuthenticationProvider 处理
             return null;
         }
+        String jsonUser = new ObjectMapper().writeValueAsString(user);
         String[] roleArr = loadRoleByUserId(user.getId());
         String[] permArr = loadPermByUserId(user.getId());
         // return User.withUsername(user.getName()).password(user.getPassword()).authorities(permArr).roles(roleArr).build();
-        return User.withUsername(user.getName()).password(user.getPassword()).authorities(permArr).build();
+        return User.withUsername(jsonUser).password(user.getPassword()).authorities(permArr).build();
     }
 
     private String[] loadRoleByUserId(Long userId){

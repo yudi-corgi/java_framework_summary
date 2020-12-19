@@ -19,15 +19,16 @@ public class ResourceServerConfig {
 
     // 资源ID，对应客户端详情服务里的客户端信息
     public static final String RESOURCE_ID = "res1";
-    @Autowired
-    private TokenStore tokenStore;
+
 
     /**
      * uaa 资源服务配置
      */
     @Configuration
     @EnableResourceServer
-    public class UaaResourceServerConfig extends ResourceServerConfigurerAdapter {
+    public static class UaaResourceServerConfig extends ResourceServerConfigurerAdapter {
+        @Autowired
+        private TokenStore tokenStore;
         @Override
         public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
             resources.tokenStore(tokenStore).resourceId(RESOURCE_ID).stateless(true);
@@ -46,6 +47,8 @@ public class ResourceServerConfig {
     @Configuration
     @EnableResourceServer
     public class ServiceResourceServerConfig extends ResourceServerConfigurerAdapter {
+        @Autowired
+        private TokenStore tokenStore;
         @Override
         public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
             resources.tokenStore(tokenStore).resourceId(RESOURCE_ID).stateless(true);

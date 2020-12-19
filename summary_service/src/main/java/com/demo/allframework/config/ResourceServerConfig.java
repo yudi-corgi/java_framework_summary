@@ -59,7 +59,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").access("#oauth2.hasScope('all')") // 表示请求访问都需含有 all 授权范围
+                .antMatchers("/**").access("#oauth2.hasScope('ROLE_ADMIN')") // 表示请求访问都需含有 ROLE_ADMIN 授权范围
                 .and().csrf().disable()
                 .sessionManagement()
                 // Session 创建策略，STATELESS：不创建且不使用其它方式生成的 session

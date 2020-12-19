@@ -1,6 +1,7 @@
 package com.demo.allframework.controller;
 
 import com.demo.allframework.dto.UserDto;
+import com.demo.allframework.entity.SysUser;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -36,7 +37,8 @@ public class LoginController {
             UserDetails userDetails = (UserDetails) principal;
             username = userDetails.getUsername();
         }else{
-            username = principal.toString();
+            SysUser user = (SysUser) principal;
+            username = user.getName();
         }
         return username;
     }

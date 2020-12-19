@@ -1,6 +1,6 @@
 package com.demo.allframework.filter;
 
-import com.demo.allframework.dto.UserDto;
+import com.demo.allframework.entity.SysUser;
 import com.demo.allframework.utils.Base64Util;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -38,14 +38,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             JavaType mapType = mapper.getTypeFactory().constructParametricType(HashMap.class, String.class,Object.class);
             Map<String,Object> params = mapper.readValue(jsonToken, mapType);
             // 用户信息及权限
-            UserDto userDto = new UserDto();
-            userDto.setName(params.get("principal").toString());
+            SysUser user = mapper.readValue(params.get("principal").toString(),SysUser.class);
             JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, String.class);
-            List<String> authorities = mapper.readValue(params.get("authorities").toString(),javaType);
+            List<String> authorities = (List<String>) params.get("authorities");
 
             // 新建并填充 authentication
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken
-                    (userDto, null, AuthorityUtils.createAuthorityList(authorities.toArray(new String[0])));
+                    (user, null, AuthorityUtils.createAuthorityList(authorities.toArray(new String[0])));
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             // 保存进 SecurityContext 安全上下文
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
