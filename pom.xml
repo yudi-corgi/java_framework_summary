@@ -21,6 +21,7 @@
         <module>summary-uaa</module>
         <module>summary_discovery</module>
         <module>summary_zuul</module>
+        <module>summary_rabbitmq</module>
     </modules>
 
     <properties>
