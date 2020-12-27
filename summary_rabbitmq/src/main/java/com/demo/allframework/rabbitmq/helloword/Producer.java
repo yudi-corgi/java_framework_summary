@@ -32,7 +32,7 @@ public class Producer {
          * 参数四：autoDelete 是否自动删除，指队列消息全部消费完后且没有消费者监听时是否删除队列，true-是 false-否
          * 参数五：arguments 附加参数信息
          */
-        channel.queueDeclare(queueName, false, false, false, null);
+        channel.queueDeclare(queueName, true, false, false, null);
         /**
          * 发送消息
          * 参数一：交换机名称，当没有声明时会自动生一个默认的交换机

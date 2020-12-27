@@ -5,6 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -57,6 +58,19 @@ public class CommonUtil {
             }
         } catch (IOException | TimeoutException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 模拟处理耗时任务，message 字符串包含多少个 . 就睡眠多少秒
+     * @param message
+     * @throws InterruptedException
+     */
+    public static void doWork(String message) throws InterruptedException {
+        for (char ch: message.toCharArray()) {
+            if (ch == '.') {
+                TimeUnit.SECONDS.sleep(1);
+            }
         }
     }
 
