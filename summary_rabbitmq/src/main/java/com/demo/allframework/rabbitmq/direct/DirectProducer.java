@@ -23,7 +23,7 @@ public class DirectProducer {
 
         // 声明交换机名称及类型
         channel.exchangeDeclare("logs_direct","direct");
-        // 发送消息
+        // 发送消息，指定匹配队列的路由键
         String routingKey = "error";
         channel.basicPublish("logs_direct", routingKey, null, (message + routingKey).getBytes());
 
