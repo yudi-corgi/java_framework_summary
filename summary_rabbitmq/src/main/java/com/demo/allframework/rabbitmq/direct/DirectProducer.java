@@ -1,6 +1,7 @@
 package com.demo.allframework.rabbitmq.direct;
 
 import com.demo.allframework.rabbitmq.utils.CommonUtil;
+import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 
@@ -22,7 +23,7 @@ public class DirectProducer {
         Channel channel = connection.createChannel();
 
         // 声明交换机名称及类型
-        channel.exchangeDeclare("logs_direct","direct");
+        channel.exchangeDeclare("logs_direct", BuiltinExchangeType.DIRECT);
         // 发送消息，指定匹配队列的路由键
         String routingKey = "error";
         channel.basicPublish("logs_direct", routingKey, null, (message + routingKey).getBytes());

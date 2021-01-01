@@ -28,7 +28,7 @@ public class Consumer {
          * 接收消息
          * 参数一：要消费的队列名称
          * 参数二：开启消息的自动应答，true-开启 false-关闭，开启后拿到消息就会进行确定（注：该消息并不一定已被消费完毕）
-         * 参数三：消费消息的回调接口
+         * 参数三：消费消息的回调接口实现
          */
         channel.basicConsume(queueName, true, new DefaultConsumer(channel){
             @Override

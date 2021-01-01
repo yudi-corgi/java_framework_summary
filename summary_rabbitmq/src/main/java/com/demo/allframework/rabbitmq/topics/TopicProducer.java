@@ -1,6 +1,7 @@
 package com.demo.allframework.rabbitmq.topics;
 
 import com.demo.allframework.rabbitmq.utils.CommonUtil;
+import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 
@@ -22,7 +23,7 @@ public class TopicProducer {
         Channel channel = connection.createChannel();
 
         // 声明交换机及其类型为：topic
-        channel.exchangeDeclare("topics","topic");
+        channel.exchangeDeclare("topics", BuiltinExchangeType.TOPIC);
         // 发布消息
         String routingKey = "user";
         channel.basicPublish("topics", routingKey, null, (message + routingKey).getBytes());

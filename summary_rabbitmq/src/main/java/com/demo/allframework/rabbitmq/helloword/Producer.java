@@ -28,7 +28,7 @@ public class Producer {
          * 声明队列，队列是幂等的，若不存在会自动创建
          * 参数一：队列名称
          * 参数二：durable 是否持久化队列到磁盘，true-是 false-否（注：仅仅是持久化队列，队列中的消息不会持久化）
-         * 参数三：exclusive 是否独占，指当前队列是否仅当前连接通道可以声明绑定，true-是 false-否
+         * 参数三：exclusive 是否独占，指当前队列是否仅申明它的连接通道可见，并在连接断开后自动删除，true-是 false-否
          * 参数四：autoDelete 是否自动删除，指队列消息全部消费完后且没有消费者监听时是否删除队列，true-是 false-否
          * 参数五：arguments 附加参数信息
          */
