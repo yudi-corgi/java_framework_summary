@@ -50,6 +50,12 @@ public class Producer {
         rabbitTemplate.convertAndSend("notice","","Hello fanout!");
     }
 
+    @GetMapping("configFanout")
+    public void configFanout(){
+        // 发送消息到 RabbitMQConfig 配置的交换机
+        rabbitTemplate.convertAndSend("boot_fanout_exchange","","config fanout!");
+    }
+
     /**
      * direct：直连模式
      */
@@ -59,6 +65,12 @@ public class Producer {
         rabbitTemplate.convertAndSend("logs",routingKey,"Hello direct! RoutingKey is " + routingKey);
     }
 
+    @GetMapping("configDirect/{routingKey}")
+    public void configDirect(@PathVariable String routingKey){
+        // 发送消息到 RabbitMQConfig 配置的交换机
+        rabbitTemplate.convertAndSend("boot_direct_exchange",routingKey,"config direct! RoutingKey is " + routingKey);
+    }
+
     /**
      * topics：主题模式
      */
@@ -66,6 +78,12 @@ public class Producer {
     public void topic(@PathVariable String routingKey){
         // 指定交换机名称，路由键，消息
         rabbitTemplate.convertAndSend("topics",routingKey,"Hello topic! RoutingKey is " + routingKey);
+    }
+
+    @GetMapping("configTopic/{routingKey}")
+    public void configTopic(@PathVariable String routingKey){
+        // 发送消息到 RabbitMQConfig 配置的交换机
+        rabbitTemplate.convertAndSend("boot_topic_exchange", routingKey, "config topic! RoutingKey is " + routingKey);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.demo.allframework.rabbitmq.springmq;
 
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
@@ -32,4 +33,8 @@ public class FanoutConsumer {
         System.out.println("fanout 消费者二：" + message);
     }
 
+    @RabbitListener(queues = "boot_fanout_queue")
+    public void configFanoutReceive(Message message){
+        System.out.println(new String(message.getBody()));
+    }
 }

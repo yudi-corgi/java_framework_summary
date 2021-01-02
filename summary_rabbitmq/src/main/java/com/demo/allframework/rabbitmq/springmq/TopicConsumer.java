@@ -1,5 +1,6 @@
 package com.demo.allframework.rabbitmq.springmq;
 
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
@@ -31,6 +32,15 @@ public class TopicConsumer {
     })
     public void topicsReceiveTwo(String message){
         System.out.println("topic 消费者二：" + message);
+    }
+
+    /**
+     * 注解声明监听的队列即可，因为 RabbitMQConfig 已配置交换机与队列的绑定
+     * @param message 接收的消息对象
+     */
+    @RabbitListener(queues = {"boot_queue"})
+    public void configTopicReceive(Message message){
+        System.out.println(new String(message.getBody()));
     }
 
 }

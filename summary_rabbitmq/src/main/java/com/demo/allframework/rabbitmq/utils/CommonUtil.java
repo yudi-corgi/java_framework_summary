@@ -15,27 +15,23 @@ import java.util.concurrent.TimeoutException;
  */
 public class CommonUtil {
 
-    private static ConnectionFactory factory;
-    static {
-        // 创建连接工厂对象，指定 IP、Port 连接 MQ Server，也可以直接指定主机名称进行绑定
-        factory = new ConnectionFactory();
-        factory.setHost("127.0.0.1");
-        factory.setPort(5672);
-        // factory.setHost("localhost");
-
-        // 指定虚拟主机 VirtualHost、VirtualHost 对应的访问账户密码
-        // 虚拟主机及访问用户可在 Web 管理平台/命令行进行配置
-        factory.setVirtualHost("/ems");
-        factory.setUsername("ems");
-        factory.setPassword("123");
-    }
-
     /**
      * 创建 MQ Server 连接
      * @return
      */
     public static Connection getConnection(){
         try{
+            // 创建连接工厂对象，指定 IP、Port 连接 MQ Server，也可以直接指定主机名称进行绑定
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("127.0.0.1");
+            factory.setPort(5672);
+            // factory.setHost("localhost");
+
+            // 指定虚拟主机 VirtualHost、VirtualHost 对应的访问账户密码
+            // 虚拟主机及访问用户可在 Web 管理平台/命令行进行配置
+            factory.setVirtualHost("/ems");
+            factory.setUsername("ems");
+            factory.setPassword("123");
             return factory.newConnection();
         } catch (TimeoutException | IOException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.demo.allframework.rabbitmq.springmq;
 
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
@@ -33,5 +34,11 @@ public class DirectConsumer {
     })
     public void directReceiveTwo(String message){
         System.out.println("direct 消费者二：" + message);
+    }
+
+
+    @RabbitListener(queues = "boot_direct_queue")
+    public void configDirectReceive(Message message){
+        System.out.println(new String(message.getBody()));
     }
 }
