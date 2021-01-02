@@ -1,6 +1,7 @@
 package com.demo.allframework.rabbitmq.springmq;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Producer {
 
     @Autowired
-    private RabbitTemplate rabbitTemplate;
+    RabbitTemplate rabbitTemplate;
 
     /**
      * Hello World
@@ -82,6 +83,8 @@ public class Producer {
 
     @GetMapping("configTopic/{routingKey}")
     public void configTopic(@PathVariable String routingKey){
+        // 设置发送时消息对象使用 JSON 序列化
+        rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
         // 发送消息到 RabbitMQConfig 配置的交换机
         rabbitTemplate.convertAndSend("boot_topic_exchange", routingKey, "config topic! RoutingKey is " + routingKey);
     }

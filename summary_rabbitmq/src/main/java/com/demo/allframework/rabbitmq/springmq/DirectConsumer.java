@@ -18,7 +18,7 @@ public class DirectConsumer {
     @RabbitListener(bindings = {
             @QueueBinding(
                 value = @Queue,  // value 声明 @Queue 不指定任何信息代表创建临时队列
-                exchange = @Exchange(value = "logs", type = "direct", durable = "false"),// 指定交换机名称和类型
+                exchange = @Exchange(value = "logs", durable = "false"),// 默认 direct，指定交换机名称和类型
                 key = {"info","error","warn"}) // 指定 routingKey
     })
     public void directReceiveOne(String message){
@@ -29,7 +29,7 @@ public class DirectConsumer {
     @RabbitListener(bindings = {
             @QueueBinding(
                     value = @Queue,  // value 声明 @Queue 不指定任何信息代表创建临时队列
-                    exchange = @Exchange(value = "logs", type = "direct", durable = "false"),// 指定交换机名称和类型
+                    exchange = @Exchange(value = "logs", durable = "false"),// 指定交换机名称和类型
                     key = {"error"}) // 指定 routingKey 只为 error
     })
     public void directReceiveTwo(String message){
