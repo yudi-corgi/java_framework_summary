@@ -1,5 +1,7 @@
 package com.demo.allframework.rabbitmq.springmq;
 
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -82,8 +84,24 @@ public class Producer {
 
     @GetMapping("configTopic/{routingKey}")
     public void configTopic(@PathVariable String routingKey){
+        // 方式一：通过消息后处理对象设置消息的相关参数
+        // MessagePostProcessor messagePostProcessor = (message -> {
+        //     message.getMessageProperties().setExpiration("5000");
+        //     return message;
+        // });
+
+        // 方式二：通过消息参数设置消息的过期时间
+        MessageProperties messageProperties = new MessageProperties();
+        // messageProperties.setExpiration("5000");
+        // 构建消息对象
+        Message message = new Message(("config topic! RoutingKey is " + routingKey).getBytes(), messageProperties);
         // 发送消息到 RabbitMQConfig 配置的交换机
-        rabbitTemplate.convertAndSend("boot_topic_exchange", routingKey, "config topic! RoutingKey is " + routingKey);
+        for (int i = 0; i < 10; i++) {
+            // 基于方式一的消息发送
+            // rabbitTemplate.convertAndSend("boot_topic_exchange", routingKey, "config topic! RoutingKey is " + routingKey, messagePostProcessor);
+            // 方式二
+            rabbitTemplate.convertAndSend("boot_topic_exchange", routingKey,  message);
+        }
     }
 
 }

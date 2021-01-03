@@ -13,6 +13,7 @@ spring:
     listener:
       simple:
         acknowledge-mode: manual
-
+        # 消费端每次从 MQ 获取消息的数量，需要在 Ack 非自动确认的前提下使用，确认后才会获取下一条消息
+        prefetch: 1
 server:
   port: 80

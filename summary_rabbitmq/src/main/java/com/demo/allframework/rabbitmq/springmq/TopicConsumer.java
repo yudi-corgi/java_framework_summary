@@ -9,6 +9,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author YUDI
@@ -41,7 +42,7 @@ public class TopicConsumer {
      * 注解声明监听的队列即可，因为 RabbitMQConfig 已配置交换机与队列的绑定
      * @param message 接收的消息对象
      */
-    @RabbitListener(queues = {"boot_queue"})
+    @RabbitListener(queues = {"boot_topic_queue"})
     public void configTopicReceive(Message message, Channel channel) throws IOException {
         try {
             System.out.println(new String(message.getBody()));
@@ -53,6 +54,7 @@ public class TopicConsumer {
              * deliveryTag：消息的唯一标识，单调递增的正整数
              * multiple：同时拒绝确认多条消息（小于等于参数一的所有标识消息）
              */
+            TimeUnit.SECONDS.sleep(2);
             channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
         } catch (Exception e) {
             /**
@@ -60,6 +62,8 @@ public class TopicConsumer {
              * requeue：重回队列，true 表示消息重回队列，broker 会重新发送消息，false 则不重发
              */
             channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
+            // basicReject 等同于 basicNack，但无法同时拒绝确认多条消息，参数二为 boolean requeue
+            // channel.basicReject(message.getMessageProperties().getDeliveryTag(),true);
         }
     }
 }

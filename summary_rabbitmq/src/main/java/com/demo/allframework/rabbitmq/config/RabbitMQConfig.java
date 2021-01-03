@@ -36,7 +36,8 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue topicQueue(){
-        return QueueBuilder.durable(TOPIC_QUEUE_NAME).build();
+        // withArgument 设置队列消息的统一过期时间，单位毫秒
+        return QueueBuilder.durable(TOPIC_QUEUE_NAME).withArgument("x-message-ttl",10000).build();
     }
 
     @Bean
