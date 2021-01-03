@@ -104,4 +104,17 @@ public class Producer {
         }
     }
 
+    /**
+     * 死信队列测试
+     * @param routingKey
+     */
+    @GetMapping("deadTopic/{routingKey}")
+    public void deadTopic(@PathVariable String routingKey){
+        // 测试情况一：消息过期
+        // rabbitTemplate.convertAndSend("test_topic_exchange",routingKey,"test ttl dead message...");
+        // 测试情况二：消息队列长度超出限制
+        for (int i = 0; i < 20; i++) {
+            rabbitTemplate.convertAndSend("test_topic_exchange",routingKey,"test ttl dead message...");
+        }
+    }
 }

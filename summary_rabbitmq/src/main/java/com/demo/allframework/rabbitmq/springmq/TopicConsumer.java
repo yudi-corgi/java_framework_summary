@@ -66,4 +66,28 @@ public class TopicConsumer {
             // channel.basicReject(message.getMessageProperties().getDeliveryTag(),true);
         }
     }
+
+    /**
+     * 监听设置死信队列的普通队列
+     * 如果不监听普通队列，发送到该队列的消息只要符合死信情况，都会路由到死信队列，因此可以构成延迟队列的效果
+     * 延迟队列概念：消息进入队列后不会立即被消费，只有达到指定时间后才会被消费。
+     * 实现本质：TTL + 死信队列
+     */
+    @RabbitListener(queues = {"test_topic_queue"})
+    public void testTopicConsumer(Message message, Channel channel) throws IOException, InterruptedException {
+        System.out.println("拒绝签收并且不重回队列.");
+        TimeUnit.SECONDS.sleep(1);
+        // 死信情况测试三：消息拒绝确认并且不返回队列
+        channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,false);
+    }
+
+    /**
+     * 死信队列监听，如果绑定死信队列的普通队列没被监听，并且是超时产生的死信，则效果等同于延迟队列
+     */
+    @RabbitListener(queues = {"dlx_queue"})
+    public void dlxConsumer(Message message, Channel channel) throws IOException {
+        System.out.println("接收死信队列消息.");
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),true);
+    }
+
 }
