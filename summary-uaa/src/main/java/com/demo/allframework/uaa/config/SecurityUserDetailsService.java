@@ -11,6 +11,8 @@ import com.demo.allframework.uaa.service.SysUserService;
 import lombok.SneakyThrows;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -50,6 +52,8 @@ public class SecurityUserDetailsService implements UserDetailsService {
             // 若为 null，返回后由 DaoAuthenticationProvider 处理
             return null;
         }
+        // 自定义授权内容
+        List<GrantedAuthority> ga = AuthorityUtils.commaSeparatedStringToAuthorityList("admin,role");
         String jsonUser = new ObjectMapper().writeValueAsString(user);
         String[] roleArr = loadRoleByUserId(user.getId());
         String[] permArr = loadPermByUserId(user.getId());

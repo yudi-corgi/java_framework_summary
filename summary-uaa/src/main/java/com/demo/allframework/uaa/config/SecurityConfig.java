@@ -1,13 +1,20 @@
 package com.demo.allframework.uaa.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 /**
  * SpringSecurity 权限配置
@@ -19,11 +26,26 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private DataSource dataSource;
+    @Autowired
+    @Qualifier("securityUserDetailsService")
+    private UserDetailsService userDetailsService;
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository(){
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        // 启动时自动创建数据库表
+        // jdbcTokenRepository.setCreateTableOnStartup(true);
+        return jdbcTokenRepository;
+    }
+
     /**
      * 注册认证管理器实例对象，授权服务设置密码授权类型时使用
      * @return
      * @throws Exception
      */
+    @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
@@ -48,13 +70,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
                 .authorizeRequests()
                 .antMatchers("/sys/t/t1").hasAnyAuthority("admin")
                 .antMatchers("/login*").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin();
+                .formLogin().loginPage("/toLogin").permitAll()
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/index").permitAll()
+                .and().rememberMe().tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(60)
+                .userDetailsService(userDetailsService);
     }
 
 }

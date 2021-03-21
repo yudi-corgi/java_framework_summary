@@ -27,7 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * 定义用户信息服务（查询用户信息）
      * @return
      */
-    // @Bean
+    @Bean
+    @Override
     public UserDetailsService userDetailsService(){
         // 创建 InMemoryUserDetailsManager 对象，构建用户账户信息保存在内存当中
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();

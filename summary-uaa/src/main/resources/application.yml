@@ -24,7 +24,7 @@ spring:
 server:
   port: 9091
   servlet:
-    context-path: /uaa
+    context-path: /
   # tomcat:
     # 设定 remote IP 的 Header，如果remoteIpHeader有值，则设置为RemoteIpValve
     # remote-ip-header: x-forwarded-for
@@ -32,14 +32,14 @@ server:
     # protocol-header: x-forwarded-proto
 
 # Eureka
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:10010/eureka
-  instance:
-    # 以 IP 地址注册到服务中心
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:10010/eureka
+#  instance:
+#    # 以 IP 地址注册到服务中心
+#    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
 
 # feign 配置
 feign:
