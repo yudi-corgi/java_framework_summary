@@ -1,10 +1,9 @@
-package com.demo.allframework.netty.websocket;
+package com.demo.allframework.netty.websocket.example;
 
 import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.stream.ChunkedNioFile;
-import lombok.SneakyThrows;
 
 import java.io.File;
 import java.io.RandomAccessFile;
@@ -22,12 +21,14 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     private static final File INDEX;
 
     static {
+        // 获取类的根路径
         URL location = HttpRequestHandler.class.getProtectionDomain()
                 .getCodeSource().getLocation();
         try{
-            String path = location.toURI() + "index.html";
+            String path = location.toURI().getPath() + "index.html";
             path = !path.contains("file:") ? path : path.substring(5);
             INDEX = new File(path);
+            System.out.println(INDEX.getAbsolutePath());
         }catch (URISyntaxException e){
             throw new IllegalStateException("Unable to locate index.html", e);
         }
@@ -48,8 +49,9 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             }
             // 读取 index.html
             RandomAccessFile file = new RandomAccessFile(INDEX, "r");
+            System.out.println(request.protocolVersion());
             HttpResponse response = new DefaultFullHttpResponse(request.protocolVersion(),HttpResponseStatus.OK);
-            response.headers().set(HttpHeaderNames.CONTENT_TYPE,"text/plain; charset=UTF-8");
+            response.headers().set(HttpHeaderNames.CONTENT_TYPE,"text/html; charset=UTF-8");
             boolean keepAlive = HttpUtil.isKeepAlive(request);
             // 若请求了 keepAlive 则添加所需要的 HTTP 头信息
             if(keepAlive){
@@ -93,12 +95,5 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
         ctx.close();
-    }
-
-    @SneakyThrows
-    public static void main(String[] args) {
-        URL location = HttpRequestHandler.class.getProtectionDomain()
-                .getCodeSource().getLocation();
-        System.out.println(location.toURI() + "index.html");
     }
 }

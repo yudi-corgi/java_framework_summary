@@ -1,4 +1,4 @@
-package com.demo.allframework.netty.websocket;
+package com.demo.allframework.netty.websocket.example;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

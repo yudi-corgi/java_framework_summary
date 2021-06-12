@@ -1,4 +1,4 @@
-package com.demo.allframework.netty.websocket;
+package com.demo.allframework.netty.websocket.example;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -27,10 +27,10 @@ public class ChatServerInitializer extends ChannelInitializer<Channel> {
         ChannelPipeline pipeline = ch.pipeline();
         // 服务端 HTTP 编解码器
         pipeline.addLast(new HttpServerCodec());
-        // 文件内容写入，主要是读取 ChunkedNioFile（ChunkedInput） 封装的数据
-        pipeline.addLast(new ChunkedWriteHandler());
         // HTTP 数据聚合器，聚合后数据最大为 64*1024，用于聚合 HttpMessage 和 HttpContent
         pipeline.addLast(new HttpObjectAggregator(64 * 1024));
+        // 异步写入，主要是读取 ChunkedNioFile（ChunkedInput） 封装的数据
+        pipeline.addLast(new ChunkedWriteHandler());
         // HTTP 处理器
         pipeline.addLast(new HttpRequestHandler("/ws"));
         // 该处理器处理 WebSocket 升级握手，Close、Ping、Pong 控制帧

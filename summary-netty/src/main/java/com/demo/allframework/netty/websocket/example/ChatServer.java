@@ -1,4 +1,4 @@
-package com.demo.allframework.netty.websocket;
+package com.demo.allframework.netty.websocket.example;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -15,7 +15,7 @@ import java.net.InetSocketAddress;
 /**
  * @author CDY
  * @date 2021/6/12
- * @description  引导服务器
+ * @description  引导服务器，example 包下的代码为《Netty实战》的示例
  */
 public class ChatServer {
 
