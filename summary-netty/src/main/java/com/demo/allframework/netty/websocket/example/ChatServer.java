@@ -3,6 +3,7 @@ package com.demo.allframework.netty.websocket.example;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
@@ -15,7 +16,7 @@ import java.net.InetSocketAddress;
 /**
  * @author CDY
  * @date 2021/6/12
- * @description  引导服务器，example 包下的代码为《Netty实战》的示例
+ * @description  引导服务器（非加密）
  */
 public class ChatServer {
 
@@ -41,6 +42,11 @@ public class ChatServer {
         future.syncUninterruptibly();
         channel = future.channel();
         return future;
+    }
+
+    protected ChannelInitializer<Channel> createInitializer(
+            ChannelGroup group) {
+        return new ChatServerInitializer(group);
     }
 
     /**
