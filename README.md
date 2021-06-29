@@ -9,7 +9,7 @@
 - [x] Mybatis
 - [ ] Shiro
 - [ ] Quartz
-- [ ] Netty（只写了简单的 WebSocket 示例，未实际应用）
+- [ ] Netty（只写了简单的 WebSocket / UDP 广播 示例，未实际应用）
 - [ ] 待补充...
 
 ### 数据库
