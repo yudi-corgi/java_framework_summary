@@ -62,6 +62,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             ctx.write(response);
             if(ctx.pipeline().get(SslHandler.class) == null){
                 // 使用 FileRegion 将 index.html 写到客户端
+                // TODO 调用接口后，此处 index.html 在浏览器并没有输出，并且请求也是一直读取中，待解决！！！
                 ctx.write(new DefaultFileRegion(file.getChannel(), 0, file.length()));
             }else{
                 // 若是加密，使用 ChunkedNioFile（实现了 ChunkedInput）来获取数据并写到客户端
