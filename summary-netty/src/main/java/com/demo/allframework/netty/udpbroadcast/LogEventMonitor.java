@@ -22,7 +22,10 @@ public class LogEventMonitor {
         group = new NioEventLoopGroup();
         bootstrap = new Bootstrap();
         bootstrap.group(group).channel(NioDatagramChannel.class)
+                // 设置广播模式
                 .option(ChannelOption.SO_BROADCAST, true)
+                // 设置端口重用，否则开启多个客户端会提示端口已被占用
+                .option(ChannelOption.SO_REUSEADDR, true)
                 .handler(new ChannelInitializer<Channel>() {
                     @Override
                     protected void initChannel(Channel channel) throws Exception {
@@ -39,7 +42,7 @@ public class LogEventMonitor {
      */
     @SneakyThrows
     public Channel bind(){
-        return bootstrap.bind().sync().channel();
+        return bootstrap.bind().syncUninterruptibly().channel();
     }
 
     /**
@@ -51,7 +54,7 @@ public class LogEventMonitor {
 
     @SneakyThrows
     public static void main(String[] args) {
-        LogEventMonitor monitor = new LogEventMonitor(new InetSocketAddress(0));
+        LogEventMonitor monitor = new LogEventMonitor(new InetSocketAddress(9999));
         try{
             Channel bind = monitor.bind();
             System.out.println("LogMonitor running...");

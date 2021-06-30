@@ -33,6 +33,7 @@ public class LogEventEncoder extends MessageToMessageEncoder<LogEvent> {
         // 写入日志消息
         buf.writeBytes(msg);
         // 将一个拥有数据和目的地地址的新 DatagramPacket 添加到出站的消息列表中
+        System.out.println(remoteAddress.getAddress() + ":" + remoteAddress.getPort());
         out.add(new DatagramPacket(buf, remoteAddress));
     }
 }

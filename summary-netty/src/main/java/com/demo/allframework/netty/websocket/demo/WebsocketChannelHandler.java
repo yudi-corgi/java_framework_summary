@@ -67,7 +67,7 @@ public class WebsocketChannelHandler extends SimpleChannelInboundHandler<Object>
     private void handleHttpRequest(ChannelHandlerContext ctx, FullHttpRequest request) {
         final DecoderResult decoderResult = request.decoderResult();
         System.out.println(decoderResult.isSuccess());
-        if(!request.decoderResult().isSuccess()|| !"websocket".equals(request.headers().get("Upgrade"))) {
+        if (!request.decoderResult().isSuccess() || !"websocket".equals(request.headers().get("Upgrade"))) {
             // 非协议升级时响应 Bad Request
             sendHttpResponse(ctx, request, new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
             return;

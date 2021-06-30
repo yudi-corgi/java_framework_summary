@@ -29,17 +29,17 @@ public class LogEventBroadcaster {
         bootstrap = new Bootstrap();
         // 引导 NioDatagramChannel 无连接
         bootstrap.group(group).channel(NioDatagramChannel.class)
-                // 设置 SO_BROADCAST 套接字选项
+                // 设置 SO_BROADCAST 套接字选项：广播模式，
                 .option(ChannelOption.SO_BROADCAST, true)
                 .handler(new LogEventEncoder(address));
         this.file = file;
     }
 
     public void run() throws Exception {
-        // 绑定到零网络地址，将消息定向到本地网络的主机，并获取 Channel
+        // 绑定 0 端口，将消息定向到本地网络的主机，并获取 Channel
         Channel ch = bootstrap.bind(0).sync().channel();
         long pointer = 0;
-        // 启动主处理循环
+        // 不断循环读取文件，一旦到尾部则休眠一秒后再重复操作
         for (;;) {
             long len = file.length();
             if (len < pointer) {
@@ -76,8 +76,8 @@ public class LogEventBroadcaster {
     }
 
     public static void main(String[] args) throws Exception {
-        LogEventBroadcaster broadcaster = new LogEventBroadcaster(
-                new InetSocketAddress("255.255.255.255", 9999), new File("D:\\Config.ini"));
+        // 255.255.255.255 表示本地(局域网)广播
+        LogEventBroadcaster broadcaster = new LogEventBroadcaster(new InetSocketAddress("255.255.255.255", 9999), new File("D:\\Config.ini"));
         try {
             broadcaster.run();
         } finally {
