@@ -11,7 +11,7 @@ import java.net.InetSocketAddress;
 /**
  * @author CDY
  * @date 2021/6/13
- * @description  引导服务器（加密）
+ * @description  引导服务器（加密）[不可用!!!!!]
  */
 public class SecureChatServer extends ChatServer{
 

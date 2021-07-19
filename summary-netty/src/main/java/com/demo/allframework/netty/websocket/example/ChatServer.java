@@ -36,7 +36,7 @@ public class ChatServer {
         ServerBootstrap boot = new ServerBootstrap();
         boot.group(eventGroup)
                 .channel(NioServerSocketChannel.class)
-                .childHandler(new ChatServerInitializer(channelGroup));
+                .childHandler(createInitializer(channelGroup));
         ChannelFuture future = boot.bind(address);
         // 阻塞直到绑定成功
         future.syncUninterruptibly();

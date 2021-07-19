@@ -6,6 +6,7 @@ import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.stream.ChunkedNioFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.RandomAccessFile;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -51,30 +52,39 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             RandomAccessFile file = new RandomAccessFile(INDEX, "r");
             System.out.println(request.protocolVersion());
             HttpResponse response = new DefaultFullHttpResponse(request.protocolVersion(),HttpResponseStatus.OK);
-            response.headers().set(HttpHeaderNames.CONTENT_TYPE,"text/html; charset=UTF-8");
+            response.headers().set(HttpHeaderNames.CONTENT_TYPE,"text/plain; charset=UTF-8");
             boolean keepAlive = HttpUtil.isKeepAlive(request);
             // 若请求了 keepAlive 则添加所需要的 HTTP 头信息
             if(keepAlive){
                 response.headers().set(HttpHeaderNames.CONTENT_LENGTH, file.length());
                 response.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
+                response.headers().set(HttpHeaderNames.EXPIRES, 30);
+
             }
             // 将 HttpResponse 写到客户端
             ctx.write(response);
             if(ctx.pipeline().get(SslHandler.class) == null){
                 // 使用 FileRegion 将 index.html 写到客户端
                 // TODO 调用接口后，此处 index.html 在浏览器并没有输出，并且请求也是一直读取中，待解决！！！
-                ctx.write(new DefaultFileRegion(file.getChannel(), 0, file.length()));
+                FileInputStream fis = new FileInputStream(INDEX);
+                ctx.write(new DefaultFileRegion(fis.getChannel(), 0, INDEX.length()));
             }else{
                 // 若是加密，使用 ChunkedNioFile（实现了 ChunkedInput）来获取数据并写到客户端
                 ctx.write(new ChunkedNioFile(file.getChannel()));
             }
             // 写 LastHttpContent 并冲刷至客户端
             ChannelFuture future = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
+            file.close();
             // 若无请求 keepAlive，则写操作完成后关闭 Channel
             if(!keepAlive){
                 future.addListener(ChannelFutureListener.CLOSE);
             }
         }
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.flush();
     }
 
     /**

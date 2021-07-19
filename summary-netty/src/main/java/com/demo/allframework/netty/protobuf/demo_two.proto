@@ -1,0 +1,24 @@
+syntax="proto3";
+
+option java_package = ".class";
+option java_outer_classname="DemoTwoProto";
+
+// 外部定义，不管枚举在消息内外部定义，都是可以重用的
+enum ErrCode{
+  option allow_alias = true;
+  SUCCESS = 0;
+  ERROR = 1;
+  UN_AUTH = 1;
+  ANONYMOUS = 2;
+}
+
+message User{
+  // 保留 7-9 编号及两个字段名称，注意：不能再同一保留语句中混合使用字段名称和编号
+  reserved 7 to 9;
+  reserved "username", "loginName";
+  int32 id = 1;
+  string name = 2;
+  string pwd = 3;
+  int32 age = 4;
+  repeated string hobby = 5;
+}

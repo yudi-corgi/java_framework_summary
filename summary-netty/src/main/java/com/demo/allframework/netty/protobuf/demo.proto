@@ -1,0 +1,120 @@
+// .proto 第一行指定使用的语法办法，否则默认 proto2，必须为文件的第一个非空非注释行
+syntax="proto3";
+
+// 指定生成 .proto 对应文件的包名
+package com.demo.allframework.netty.protobuf;
+
+//option java_package = ""; 这种方式也可以指定包名
+
+// 指定生成的文件名
+option java_outer_classname="DemoProto";
+option java_multiple_files=false;
+
+// import: 导入其它 .proto 文件
+import "com/demo/allframework/netty/protobuf/demo_two.proto";
+/**
+  <p>import public：表示任何导入包含 import public 语句的 .proto 的文件都可以获取 .proto 所引入的 public 依赖，即依赖传递性。
+  <p>一般用于 .proto 内容迁移的时候，可以在原目录保留 old.proto，使用 import public "new.proto"，
+  则原本其它引用了 old.proto 的文件则无需做任何更改，会自动导入 new.proto 的消息内容。
+ */
+// import public "";
+
+// protobuf 所有定义的对象都是 message（消息类型）
+message SearchRequest{
+  /*
+    对象中必须包含：字段类型、字段名称、字段编号；
+    字段编号：
+      字段编号用于在消息二进制格式中标识字段，1~15 内的字段编号占用一个字节进行编码，包括字段编号和字段类型；
+      16 到 2047 范围内的字段编号占用两个字节，最大为 2*29-1 或 536870911，而 19000~19999 是为 protobuf 实现所保留的编号，不使用。
+  */
+  // singular：单数（默认），指定的字段默认是为零或一个
+  // repeated：表示字段可以在消息重复出现（包括零），重复值的顺序将被保留，可理解为 Java 的集合、数组等
+  repeated string query = 1;
+  int32 page_num = 2;
+  int32 page_per_page = 3 ;
+  // 引用其它消息类型作为字段
+  SearchResponse res = 4;
+}
+
+// 定义多个消息类型
+message SearchResponse{
+  // reserved：表示保留字段或编号，即消息类型中不能再使用相关的字段和编号，一般用于字段删除后不想被复用而使用
+  reserved "name","admin";
+  reserved 2, 4, 6 to 10, 17 to max;
+  string res = 1;
+  int32 length = 3;
+  string content = 5;
+  bool status = 11 ;
+  // 表示 Role 列表
+  repeated Result results = 12;
+}
+
+message Result {
+  string url = 1;
+  string data = 2;
+  repeated string snippets = 3;
+}
+
+message Role{
+  int32 id = 1;
+  string name = 2;
+  string tags = 3;
+  int64 createTime = 4;
+
+  // 通过枚举，为字段声明一个预定义的值列表，枚举默认值为第一个枚举值，必须为 0（原因：与 proto2 兼容）
+  enum RoleType{
+    // 为不同的枚举常量分配相同的值来定义别名
+    option allow_alias = true;
+    ADMIN = 0;
+    // TOURIST / NORMAL 名称不同但值相同
+    TOURIST = 1;
+    NORMAL = 1;
+    ASSISTANT = 3;
+  }
+  // RoleType 的值只能为上面的内容
+  RoleType type = 5;
+}
+
+// 外部定义，不管枚举在消息内外部定义，都是可以重用的
+enum RoleType{
+  option allow_alias = true;
+  ADMIN = 0;
+  TOURIST = 1;
+  NORMAL = 1;
+}
+
+message Permission{
+  // 使用其它消息对象中的枚举作为字段类型
+  Role.RoleType innerRoleType = 1;
+  // 使用外部定义的枚举作为字段类型
+  RoleType outerRoleType2 = 2;
+  // 使用 import 导入的 .proto 文件中的枚举类型
+  ErrCode importErrCOde = 3;
+  // 使用 import 导入的 .proto 文件中的消息类型
+  repeated User user = 4;
+}
+
+message Animal{
+  int64 quantity = 2;
+  // 嵌套消息类型
+  message Eagle{
+    string name = 1;
+    int32 weight = 2;
+  }
+  Eagle eagle = 3;
+  // 多级嵌套
+  message Reptile{
+    message Lizard{
+      string name = 1;
+      string vision = 2;
+      int32 age = 3;
+    }
+  }
+  Reptile.Lizard lizard = 4;
+}
+
+message Birds{
+  // 引用其它消息类型的嵌套类型
+  Animal.Eagle eagle = 1;
+  Animal.Reptile.Lizard lizard = 2;
+}
