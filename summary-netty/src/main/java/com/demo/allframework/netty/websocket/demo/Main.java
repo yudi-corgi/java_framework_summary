@@ -1,6 +1,5 @@
 package com.demo.allframework.netty.websocket.demo;
 
-import com.demo.allframework.netty.handler.ShutdownHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
@@ -33,11 +32,19 @@ public class Main {
             System.out.println("server running and waiting for client to connect.");
             Channel channel = bootstrap.bind(8888).sync().channel();
             channel.closeFuture().sync();
-            // 注册信号处理器
-            EventLoopGroup[] groups = { bossGroup, workGroup};
-            ShutdownHandler shutdownHandler = new ShutdownHandler(groups);
+            // 注册信号处理器，监听终止信号关闭 EventLoopGroup 线程
             Signal signal = new Signal(sig);
-            Signal.handle(signal,shutdownHandler);
+            Signal.handle(signal, s -> {
+                // 获取信号
+                String sig = signal.getName();
+                // SIGINT：中断信号
+                if("SIGINT".equals(sig)){
+                    System.out.println("SignalHandler start...");
+                    bossGroup.shutdownGracefully();
+                    workGroup.shutdownGracefully();
+                    System.out.println("SignalHandler end...");
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }/*finally {

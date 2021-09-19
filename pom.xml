@@ -23,6 +23,7 @@
         <module>summary_zuul</module>
         <module>summary_rabbitmq</module>
         <module>summary-netty</module>
+        <module>summary-elasticstack</module>
     </modules>
 
     <properties>

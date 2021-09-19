@@ -12,10 +12,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 // @EnableDiscoveryClient
 // @EnableHystrix
 @EnableFeignClients(basePackages = {"com.demo.allframework.uaa.mapper"})
-public class SummaryUAAServer {
+public class SummaryUaaServer {
 
     public static void main(String[] args) {
-        SpringApplication.run(SummaryUAAServer.class,args);
+        SpringApplication.run(SummaryUaaServer.class,args);
     }
 
 }

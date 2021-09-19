@@ -9,6 +9,7 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.ImmediateEventExecutor;
 
 import java.net.InetSocketAddress;
@@ -35,6 +36,8 @@ public class ChatServer {
     public ChannelFuture start(InetSocketAddress address){
         ServerBootstrap boot = new ServerBootstrap();
         boot.group(eventGroup)
+                // 添加子 Channel 属性，value 为 null 时该 AttributeKey 会删除
+                .childAttr(AttributeKey.valueOf("attr"),"customer K-V")
                 .channel(NioServerSocketChannel.class)
                 .childHandler(createInitializer(channelGroup));
         ChannelFuture future = boot.bind(address);
