@@ -1,4 +1,4 @@
-package com.demo.allframework.kafka.producer.topic;
+package com.demo.allframework.kafka.topic;
 
 import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.common.config.ConfigResource;

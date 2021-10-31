@@ -1,9 +1,9 @@
-package com.demo.allframework.kafka.producer.producer;
+package com.demo.allframework.kafka.producer;
 
-import com.demo.allframework.kafka.producer.config.CustomPartitioner;
-import com.demo.allframework.kafka.producer.interceptor.CustomPrefixProducerInterceptor;
-import com.demo.allframework.kafka.producer.interceptor.CustomSuffixProducerInterceptor;
-import com.demo.allframework.kafka.producer.utils.BytesUtil;
+import com.demo.allframework.kafka.interceptor.CustomPrefixProducerInterceptor;
+import com.demo.allframework.kafka.config.CustomPartitioner;
+import com.demo.allframework.kafka.interceptor.CustomSuffixProducerInterceptor;
+import com.demo.allframework.kafka.utils.BytesUtil;
 import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.header.internals.RecordHeader;

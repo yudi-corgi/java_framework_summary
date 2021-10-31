@@ -1,4 +1,4 @@
-package com.demo.allframework.kafka.producer.strategy;
+package com.demo.allframework.kafka.strategy;
 
 import org.apache.kafka.clients.consumer.internals.AbstractPartitionAssignor;
 import org.apache.kafka.common.TopicPartition;

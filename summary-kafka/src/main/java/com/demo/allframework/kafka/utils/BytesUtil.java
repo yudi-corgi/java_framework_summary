@@ -1,4 +1,4 @@
-package com.demo.allframework.kafka.producer.utils;
+package com.demo.allframework.kafka.utils;
 
 /**
  * @author CDY

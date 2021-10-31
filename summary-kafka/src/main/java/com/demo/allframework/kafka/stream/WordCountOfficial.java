@@ -1,4 +1,4 @@
-package com.demo.allframework.kafka.producer.stream;
+package com.demo.allframework.kafka.stream;
 
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;

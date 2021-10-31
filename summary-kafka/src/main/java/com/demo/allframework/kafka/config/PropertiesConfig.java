@@ -1,4 +1,4 @@
-package com.demo.allframework.kafka.producer.config;
+package com.demo.allframework.kafka.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

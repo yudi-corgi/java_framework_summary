@@ -1,6 +1,6 @@
-package com.demo.allframework.kafka.producer.interceptor;
+package com.demo.allframework.kafka.interceptor;
 
-import com.demo.allframework.kafka.producer.utils.BytesUtil;
+import com.demo.allframework.kafka.utils.BytesUtil;
 import org.apache.kafka.clients.consumer.ConsumerInterceptor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

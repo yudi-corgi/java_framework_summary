@@ -25,6 +25,7 @@
         <module>summary-netty</module>
         <module>summary-elasticstack</module>
         <module>summary-kafka</module>
+        <module>summary-shardingsphere</module>
     </modules>
 
     <properties>

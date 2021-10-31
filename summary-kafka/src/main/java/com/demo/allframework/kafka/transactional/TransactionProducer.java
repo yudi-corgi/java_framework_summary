@@ -1,4 +1,4 @@
-package com.demo.allframework.kafka.producer.transactional;
+package com.demo.allframework.kafka.transactional;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;

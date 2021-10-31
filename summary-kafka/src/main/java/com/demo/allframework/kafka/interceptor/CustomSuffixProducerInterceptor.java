@@ -1,4 +1,4 @@
-package com.demo.allframework.kafka.producer.interceptor;
+package com.demo.allframework.kafka.interceptor;
 
 import org.apache.kafka.clients.producer.ProducerInterceptor;
 import org.apache.kafka.clients.producer.ProducerRecord;

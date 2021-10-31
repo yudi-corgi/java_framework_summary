@@ -1,7 +1,7 @@
-package com.demo.allframework.kafka.producer.consumer;
+package com.demo.allframework.kafka.consumer;
 
-import com.demo.allframework.kafka.producer.interceptor.CustomConsumerInterceptor;
-import com.demo.allframework.kafka.producer.strategy.RandomPartitionAssignor;
+import com.demo.allframework.kafka.interceptor.CustomConsumerInterceptor;
+import com.demo.allframework.kafka.strategy.RandomPartitionAssignor;
 import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.PartitionInfo;

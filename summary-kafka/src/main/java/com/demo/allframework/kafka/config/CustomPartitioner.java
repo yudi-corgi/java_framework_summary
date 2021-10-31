@@ -1,4 +1,4 @@
-package com.demo.allframework.kafka.producer.config;
+package com.demo.allframework.kafka.config;
 
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;

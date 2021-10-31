@@ -1,4 +1,4 @@
-package com.demo.allframework.kafka.producer.topic;
+package com.demo.allframework.kafka.topic;
 
 import org.apache.kafka.common.errors.PolicyViolationException;
 import org.apache.kafka.server.policy.CreateTopicPolicy;
