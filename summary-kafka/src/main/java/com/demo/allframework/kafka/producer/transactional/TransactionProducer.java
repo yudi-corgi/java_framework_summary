@@ -1,9 +1,8 @@
-package com.demo.allframework.kafka.producer;
+package com.demo.allframework.kafka.producer.transactional;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.errors.ProducerFencedException;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
@@ -13,7 +12,7 @@ import java.util.Properties;
  * @date 2021/10/16
  * @description 生产者客户端事务消息发送示例
  */
-public class ProducerClient {
+public class TransactionProducer {
 
     private final static String BOOTSTRAP_SERVER = "49.235.97.57:9092";
     private final static String TOPIC = "easy-client";

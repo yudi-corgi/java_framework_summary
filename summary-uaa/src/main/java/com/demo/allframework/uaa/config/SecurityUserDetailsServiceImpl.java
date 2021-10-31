@@ -28,7 +28,7 @@ import java.util.List;
  * @date 2020/11/22 22:44
  */
 @Service
-public class SecurityUserDetailsService implements UserDetailsService {
+public class SecurityUserDetailsServiceImpl implements UserDetailsService {
 
     @Resource
     private SysUserService sysUserService;

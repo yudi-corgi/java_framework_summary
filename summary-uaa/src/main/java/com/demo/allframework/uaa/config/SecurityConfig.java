@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
     @Autowired
-    @Qualifier("securityUserDetailsService")
+    @Qualifier("securityUserDetailsServiceImpl")
     private UserDetailsService userDetailsService;
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
