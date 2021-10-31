@@ -11,8 +11,9 @@
 - [ ] Shiro
 - [ ] Quartz
 - [x] Netty（只写了简单的 WebSocket / UDP 广播示例）
-- [ ] ShardingSphere：TODO
-- [ ] ElasticJob：TODO
+- [x] ShardingSphere-JDBC
+- [x] ElasticJob
+- [ ] XXL-Job
 - [ ] 待补充...
 
 ### 数据库

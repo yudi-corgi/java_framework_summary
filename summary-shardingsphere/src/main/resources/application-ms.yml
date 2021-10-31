@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: demo
+  # sharding-jdbc configuration
+  shardingsphere:
+    # 是否开启shardingSphere
+    enabled: true
+    props:
+      # 参数配置，输出sql
+      sql.show: true
+      # 简易输出sql
+      sql.simple: false
+      # 工作线程数，默认CPU数
+      executor:
+        size: 3
+      # 默认false，是否在启动时检查分表元数据一致性
+      check:
+        table:
+          metadata:
+            enabled: false
+    datasource:
+      # names 自定义数据源别名
+      names: source,replica
+      # 根据别名配置主库
+      source:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/testms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+        username: root
+        password: root
+        maxPoolSize: 100
+        minPoolSize: 5
+      # 根据别名配置从库
+      replica:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3307/testms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+        username: root
+        password: root
+        maxPoolSize: 100
+        minPoolSize: 5
+    sharding:
+      # 指定默认使用的数据源，不指定 DML 会随机选择数据源路由
+      default-data-source-name: replica
+      # 主从规则配置
+      master-slave-rules:
+        # 主从配置名称，下方的 masterslave.name
+        sr:
+          # 主库名称
+          master-data-source-name: source
+          # 从库名称列表
+          slave-data-source-names[0]: replica
+          # 负载均衡算法实现类，MasterSlaveLoadBalanceAlgorithm
+          # load-balance-algorithm-class-name:
+          # 负载均衡类型，指定自定义算法实现类，则该项忽略
+          load-balance-algorithm-type: ROUND_ROBIN
+    masterslave:
+      # 指定主从名称，自定义
+      name: sr
+      # 指定主、从库
+      master-data-source-name: source
+      slave-data-source-names: replica
+      # 从库负载均衡策略，round_robin：轮询（但老子只有一个副本，所以不用）
+      #load-balance-algorithm-type: round_robin

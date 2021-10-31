@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: demo
+  # sharding-jdbc configuration
+  shardingsphere:
+    props:
+      sql.show: true
+      executor.size: 2
+    sharding:
+      # 分片配置
+      tables:
+        # 逻辑表名称
+        user:
+          key-generator:
+            # 指定自增列字段，缺省则不使用自增主键生成器
+            column: id
+            # 自增生成器，可自定义，内置为 SNOWFLAKE、UUID
+            type: SNOWFLAKE
+            # 使用雪花算法以下参数可指定，这一串参数需要测试下效果，没指定并不影响生成（仅生成）
+            props:
+              worker.id: 2
+              # max:
+                # vibration:
+                  # offset:
+                # tolerate:
+                  # time:
+                    # difference:
+                      # milliseconds:
+          # 数据节点，num..num表示区间，[num,num]表示枚举
+          actual-data-nodes: ds$->{0..1}.user$->{0..1}
+          # 库分片策略
+          database-strategy:
+            # 使用行内表达式策略
+            inline:
+              # 分片键（字段）
+              sharding-column: id
+              # 分片表达式
+              algorithm-expression: ds$->{id % 2}
+          # 表分片策略
+          table-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: user$->{id % 2}
+      default-key-generator:
+        type: SNOWFLAKE
+        column: id

@@ -1,0 +1,35 @@
+elasticjob:
+  reg-center:
+    serverLists: localhost:2181
+    namespace: elastic
+  jobs:
+    # 一次性作业需要指定 DI 时使用的 bean 名撑
+    oneOffJob:
+      jobBootstrapBeanName: oneOffJob
+      elasticJobClass: com.personal.demo.job.SpringBootOneOffJob
+      shardingTotalCount: 1
+      shardingItemParameters: 0=dongdong
+      jobErrorHandlerType: THROW
+    # jobs 是一个 Map<String, ElasticJobConfigurationProperties> map，key 是作业名称，value 对应 ElasticJobConfigurationProperties 中的属性
+    dataflowjob:
+      elasticJobClass: com.personal.demo.job.SpringBootJob
+      cron: 0/5 * * * * ?
+      shardingTotalCount: 3
+      shardingItemParameters: 0=Beijing,1=Shanghai,2=Guangzhou
+      jobErrorHandlerType: THROW
+    scriptJobSix:
+      elasticJobType: SCRIPT
+      cron: 0/10 * * * * ?
+      shardingTotalCount: 3
+      props:
+        # 脚本绝对路径
+        script.command.line: "c:/elastic.bat"
+  tracing:
+    # 事件追踪数据源类型，目前仅支持关系型数据库
+    type: RDB
+    # 要记录的作业名称（数组）
+    include-job-names: ""
+    # 排除记录的作业名称（数字）
+    exclude-job-names: ""
+  dump:
+    port: 9099

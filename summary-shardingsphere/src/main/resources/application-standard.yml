@@ -1,0 +1,22 @@
+spring:
+  shardingsphere:
+    sharding:
+      tables:
+        user:
+          actual-data-nodes: ds0.user1, ds1.user$->{0..1}
+          # 库分片策略
+          database-strategy:
+            # 使用标准分片策略
+            standard:
+              # 分片键（字段）
+              sharding-column: age
+              # 精确分片算法实现类全限定名
+              precise-algorithm-class-name: com.personal.demo.algorithm.CustomPreciseShardingAlgorithm
+              # 范围分片算法实现类全限定名
+              range-algorithm-class-name: com.personal.demo.algorithm.CustomRangeShardingAlgorithm
+          # 表分片策略
+          table-strategy:
+            standard:
+              sharding-column: age
+              precise-algorithm-class-name: com.personal.demo.algorithm.CustomPreciseShardingAlgorithm
+              range-algorithm-class-name: com.personal.demo.algorithm.CustomRangeShardingAlgorithm

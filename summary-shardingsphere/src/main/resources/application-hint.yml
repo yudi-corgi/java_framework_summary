@@ -1,0 +1,16 @@
+spring:
+  shardingsphere:
+    sharding:
+      tables:
+        user:
+          actual-data-nodes: ds1.user$->{0..1}, ds0.user$->{[0,1]}
+          # 库分片策略
+          database-strategy:
+            # 使用Hint分片策略
+            hint:
+              # Hint分片算法实现类全限定名
+              algorithm-class-name: com.personal.demo.algorithm.CustomHintShardingAlgorithm
+          # 表分片策略
+          table-strategy:
+            hint:
+              algorithm-class-name: com.personal.demo.algorithm.CustomHintShardingAlgorithm

@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: demo
+  # sharding-jdbc configuration
+  shardingsphere:
+    props:
+      # 参数配置，输出sql
+      sql.show: true
+    datasource:
+      # names 自定义数据源别名
+      names: ds0, ds1
+      # 根据别名配置主库
+      ds0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/testms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+        username: root
+        password: root
+        maxPoolSize: 100
+        minPoolSize: 5
+      # 根据别名配置从库
+      ds1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3307/testms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+        username: root
+        password: root
+        maxPoolSize: 100
+        minPoolSize: 5

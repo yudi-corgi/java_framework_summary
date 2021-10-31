@@ -1,0 +1,14 @@
+server:
+  port: 80
+
+spring:
+  profiles:
+    active: job,db
+#    group:
+#      master-slave: ms
+#      db-inline: db,inline
+#      db-standard: db,standard
+#      db-complex: db,complex
+#      db-hint: db,hint
+
+
