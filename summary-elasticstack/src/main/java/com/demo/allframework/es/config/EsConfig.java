@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author CDY
  * @date 2021/7/25
- * @description
+ * @description ES 配置类
  */
 @Configuration
 public class EsConfig {
