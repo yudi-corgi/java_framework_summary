@@ -1,0 +1,5 @@
+spring:
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true       # 启用 ES 存储库

@@ -1,17 +1,25 @@
 package com.demo.allframework.es.practice;
 
 import cn.hutool.core.lang.UUID;
+import com.demo.allframework.es.entity.UserDoc;
 import lombok.SneakyThrows;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.support.WriteRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.core.Range;
+import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
+import org.springframework.data.elasticsearch.core.query.IndexQuery;
+import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * @Author YUDI-Corgi
@@ -22,6 +30,10 @@ public class IndexTest {
 
     @Resource
     private RestHighLevelClient highLevelClient;
+    @Resource
+    private ElasticsearchOperations esOperations;
+    @Resource
+    private ElasticsearchRestTemplate esRestTemplate;
 
     @SneakyThrows
     @PostMapping("/index")
@@ -36,4 +48,24 @@ public class IndexTest {
         System.out.println(index);
     }
 
+    @PostMapping("/user")
+    public String save(@RequestBody UserDoc userDoc) {
+        userDoc.setAge(Range.open(1,18));
+        userDoc.setCreateTime(new Date());
+        userDoc.setUpdateTime(new Date());
+        IndexQuery iq = new IndexQueryBuilder()
+                .withId(userDoc.getId())
+                .withObject(userDoc)
+                .build();
+        return esRestTemplate.index(iq, IndexCoordinates.of("first-index222"));
+    }
+
+    @GetMapping("/user/{id}")
+    public UserDoc findByDocId(@PathVariable("id") String id){
+        UserDoc userDoc = esOperations.get(id, UserDoc.class);
+        if (Objects.isNull(userDoc)) {
+            throw new RuntimeException("用户文档不存在，ID：" + id);
+        }
+        return userDoc;
+    }
 }
