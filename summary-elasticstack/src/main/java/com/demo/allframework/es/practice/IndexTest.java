@@ -8,6 +8,7 @@ import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.support.WriteRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.data.elasticsearch.core.DocumentOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.Range;
@@ -33,6 +34,8 @@ public class IndexTest {
     @Resource
     private ElasticsearchOperations esOperations;
     @Resource
+    private DocumentOperations docOperations;
+    @Resource
     private ElasticsearchRestTemplate esRestTemplate;
 
     @SneakyThrows
@@ -56,13 +59,17 @@ public class IndexTest {
         IndexQuery iq = new IndexQueryBuilder()
                 .withId(userDoc.getId())
                 .withObject(userDoc)
+                .withSource(userDoc.toString())
                 .build();
-        return esRestTemplate.index(iq, IndexCoordinates.of("first-index222"));
+        UserDoc save = docOperations.save(userDoc);
+        System.out.println(save);
+        return "";
+        //return esRestTemplate.doIndex(iq, IndexCoordinates.of("first-index"));
     }
 
     @GetMapping("/user/{id}")
     public UserDoc findByDocId(@PathVariable("id") String id){
-        UserDoc userDoc = esOperations.get(id, UserDoc.class);
+        UserDoc userDoc = esRestTemplate.get(id, UserDoc.class, IndexCoordinates.of("first-index"));
         if (Objects.isNull(userDoc)) {
             throw new RuntimeException("用户文档不存在，ID：" + id);
         }

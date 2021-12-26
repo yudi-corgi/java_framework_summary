@@ -3,10 +3,7 @@ package com.demo.allframework.es.entity;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.annotations.WriteTypeHint;
+import org.springframework.data.elasticsearch.annotations.*;
 import org.springframework.data.elasticsearch.core.Range;
 
 import java.util.Date;
@@ -18,7 +15,7 @@ import java.util.Map;
  */
 //@Setting(shards = 5, replicas = 1) 设置主分片、副本分片数量
 // 禁用类型别名
-@Document(indexName = "first-index", createIndex = false, writeTypeHint = WriteTypeHint.FALSE)
+@Document(indexName = "user_doc", createIndex = true, writeTypeHint = WriteTypeHint.TRUE, dynamic = Dynamic.TRUE)
 @TypeAlias("user") // 设置类型别名，在 ES 中会以 _class 字段展示
 @Data
 public class UserDoc {
