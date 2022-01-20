@@ -16,7 +16,7 @@ public class SyncProducer {
         // 创建默认生产者，并指定所属的生产者组，该实例对象线程安全
         DefaultMQProducer producer = new DefaultMQProducer("sync_producer");
         // 指定 Namesrv 地址
-        producer.setNamesrvAddr("119.91.138.217:9876");
+        producer.setNamesrvAddr("localhost:9876");
         // 启动生产者实例
         producer.start();
         // 循环发送消息
