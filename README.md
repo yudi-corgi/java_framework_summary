@@ -9,11 +9,10 @@
 - [x] SpringSecurity（JWT）
 - [x] Mybatis
 - [ ] Shiro
-- [ ] Quartz
-- [x] Netty（只写了简单的 WebSocket / UDP 广播示例）
+- [x] Netty（Netty 基础使用示例、WebSocket / UDP 示例）
 - [x] ShardingSphere-JDBC
-- [x] ElasticJob
-- [ ] XXL-Job
+- [x] ElasticJob（底层依赖 Quartz）
+- [ ] <span style="text-decoration:line-through">XXL-Job（<span style="color:red">移除，不作引入</span>）</span>
 - [ ] 待补充...
 
 ### 数据库
@@ -28,7 +27,7 @@
 ### 中间件
 - [x] RabbitMQ：RabbitMQ 只是小小调用，生产消费耦合在一个应用中，实际应当拆分为不同的服务.
 - [x] Kafka：消息生产、消费、事务消息、TTL、Stream、自定义分区分配策略、拦截器、AdminClient 示例
-- [ ] RocketMQ：TODO
+- [ ] RocketMQ：（目前仅示例原生生产及消费使用，集成 SpringBoot 依赖操作未作示例【TODO】）
 - [ ] 待补充...
 
 ### 工具
