@@ -44,6 +44,7 @@
         <spring-security-oauth2-autoconfigure.version>2.1.3.RELEASE</spring-security-oauth2-autoconfigure.version>
         <spring.data.elasticsearch>4.3.0</spring.data.elasticsearch>
         <rocket-mq.version>4.9.2</rocket-mq.version>
+        <rocket-mq.spring-boot.version>2.2.1</rocket-mq.spring-boot.version>
         <lombok.version>1.18.12</lombok.version>
         <hutool.version>5.7.17</hutool.version>
     </properties>
@@ -78,10 +79,18 @@
                 <version>${spring.data.elasticsearch}</version>
             </dependency>
 
+            <!-- RocketMQ 原生依赖 -->
             <dependency>
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-client</artifactId>
                 <version>${rocket-mq.version}</version>
+            </dependency>
+
+            <!-- RocketMQ 与 SpringBoot 集成依赖 -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocket-mq.spring-boot.version}</version>
             </dependency>
 
             <!--  Servlet 依赖  -->
