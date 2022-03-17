@@ -1,7 +1,8 @@
-spring:
-  rocketmq:
-    namesrvAddr: localhost:9876
-    producerGroup: TestProducer
-    consumerGroup: TestConsumer
-    # SpringBoot 使用 RocketMQ 操作同普通方式相同，未展示任何特殊注解
-    # 无非就是将一些信息配置在 yaml 文件，因此不展示代码编写
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: producerGroup     # 生产者所属组名
+  consumer:
+    topic: testTopic         # 消费主题
+    group: consumerGroup     # 消费者所属组名
+    pull-batch-size: 5       # 每次消费拉取消息数量
