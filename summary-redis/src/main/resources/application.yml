@@ -11,11 +11,19 @@ spring:
   redis:
 #    host: 119.91.138.217
 #    port: 7003
-    password: corgi       # master 节点密码，哨兵模式中若 master 设置了密码，除了 sentinel.conf 需要配置认证密码外，此处也要填写密码
-    sentinel:
-      master: mymaster    # master 名称，对应 sentinel.conf 声明的名称
-      nodes:              # Sentinel 所有实例地址
+    password: corgi       # master 节点密码，集群或哨兵模式中若 master 设置了密码，除了配置文件配置密码外，此处也要填写密码
+    cluster:              # 集群配置
+      nodes:              # 集群所有节点地址
+        - 119.91.138.217:7001
+        - 119.91.138.217:7002
+        - 119.91.138.217:7003
         - 119.91.138.217:8001
         - 119.91.138.217:8002
         - 119.91.138.217:8003
+#    sentinel:
+#      master: mymaster    # master 名称，对应 sentinel.conf 声明的名称
+#      nodes:              # Sentinel 所有实例地址
+#        - 119.91.138.217:8001
+#        - 119.91.138.217:8002
+#        - 119.91.138.217:8003
 #      password: corgi    # Sentinel 密码
