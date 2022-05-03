@@ -17,7 +17,7 @@
 
 ### 数据库
 - [x] MySql
-- [ ] Redis
+- [ ] Redis：增加了读写分离、集群配置
 
 ### 前端框架
 - [x] Thymeleaf
@@ -27,7 +27,7 @@
 ### 中间件
 - [x] RabbitMQ：RabbitMQ 只是小小调用，生产消费耦合在一个应用中，实际应当拆分为不同的服务.
 - [x] Kafka：消息生产、消费、事务消息、TTL、Stream、自定义分区分配策略、拦截器、AdminClient 示例
-- [ ] RocketMQ：（目前仅示例原生生产及消费使用，集成 SpringBoot 依赖操作未作示例【TODO】）
+- [x] RocketMQ：原生依赖生产及消费使用，集成 Spring boot starter 依赖
 - [ ] 待补充...
 
 ### 工具
