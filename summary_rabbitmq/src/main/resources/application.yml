@@ -6,7 +6,7 @@ spring:
     password: 123
     virtual-host: /ems
     # 开启确认模式，publisher -> exchange 无论成功与否执行回调函数，通过 true(成功)/false(失败) 标识
-    publisher-confirms: true
+    publisher-confirm-type: correlated
     # 开启返回模式，exchange -> queue 失败返回
     publisher-returns: true
     # 设置消费者消息接收手动确认
