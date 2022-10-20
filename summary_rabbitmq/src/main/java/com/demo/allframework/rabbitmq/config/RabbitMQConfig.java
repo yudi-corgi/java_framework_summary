@@ -47,7 +47,7 @@ public class RabbitMQConfig {
 
     /**
      * direct 交换机
-     * @return
+     * @return Exchange
      */
     @Bean
     public Exchange directExchange(){
@@ -66,7 +66,7 @@ public class RabbitMQConfig {
 
     /**
      * fanout 交换机
-     * @return
+     * @return Exchange
      */
     @Bean
     public Exchange fanoutExchange(){
@@ -91,11 +91,13 @@ public class RabbitMQConfig {
         rabbitTemplate.setConfirmCallback(confirmCallback);
         //设置 Mandatory 为 true，表示交换机路由消息失败执行返回回调函数，false 表示消息会被丢弃（默认）
         rabbitTemplate.setMandatory(true);
-        rabbitTemplate.setReturnCallback(returnCallback);
+        rabbitTemplate.setReturnsCallback(returnCallback);
         return rabbitTemplate;
     }
 
-    // 定义确认回调函数
+    /**
+     * 定义确认回调函数
+     */
     RabbitTemplate.ConfirmCallback confirmCallback = new RabbitTemplate.ConfirmCallback() {
         /**
          * 消息确认回调，publisher -> exchange
@@ -113,25 +115,21 @@ public class RabbitMQConfig {
         }
     };
 
-    // 定义返回回调函数
-    RabbitTemplate.ReturnCallback returnCallback = new RabbitTemplate.ReturnCallback() {
-        /**
-         * 消息返回回调，exchange -> queue
-         */
-        @Override
-        public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
-            System.out.println("发送的消息对象："+message);
-            System.out.println("错误码："+replyCode);
-            System.out.println("错误信息："+replyText);
-            System.out.println("交换机："+exchange);
-            System.out.println("路由键："+routingKey);
-        }
+    /**
+     * 定义返回回调函数
+     */
+    RabbitTemplate.ReturnsCallback returnCallback = returned -> {
+        System.out.println("发送的消息对象："+returned.getMessage());
+        System.out.println("错误码："+returned.getReplyCode());
+        System.out.println("错误信息："+returned.getReplyText());
+        System.out.println("交换机："+returned.getExchange());
+        System.out.println("路由键："+returned.getRoutingKey());
     };
 
     /**
      * 配置消息消费时用 JSON 反序列化
-     * @param connectionFactory
-     * @return
+     * @param connectionFactory 连接工厂
+     * @return RabbitListenerContainerFactory
      */
     // @Bean
     public RabbitListenerContainerFactory<?> rabbitListenerContainerFactory(ConnectionFactory connectionFactory){
