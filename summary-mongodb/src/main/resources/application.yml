@@ -1,0 +1,16 @@
+server:
+  port: 8189
+
+spring:
+  application:
+    name: mongodb-demo
+  data:
+    mongodb:
+      # mongo 开启 auth 功能时用如下方式连接
+      host: localhost
+      port: 27017
+      database: corgi
+#      password:
+#      username:
+      # 未开启 auth 时可直接使用 uri 指定具体连接
+#      uri: mongodb://localhost:27017/test
