@@ -6,11 +6,12 @@ spring:
     name: mongodb-demo
   data:
     mongodb:
+      # 未开启 auth 时可直接使用 uri 指定具体连接
+      # uri: mongodb://localhost:27017/test
       # mongo 开启 auth 功能时用如下方式连接
-      host: localhost
+      host: 39.108.85.40
       port: 27017
       database: corgi
-#      password:
-#      username:
-      # 未开启 auth 时可直接使用 uri 指定具体连接
-#      uri: mongodb://localhost:27017/test
+      # password:
+      # username:
+      auto-index-creation: true   # 自动创建索引，搭配 @Index 和 @CompoundIndexes 注解使用
