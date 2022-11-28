@@ -18,6 +18,7 @@
 ### 数据库
 - [x] MySql
 - [ ] Redis：增加了读写分离、集群配置
+- [ ] MongoDB：增加了 CRUD 基础操作，位于 test 包下
 
 ### 前端框架
 - [x] Thymeleaf
