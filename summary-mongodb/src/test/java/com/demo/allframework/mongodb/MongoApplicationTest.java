@@ -296,6 +296,7 @@ public class MongoApplicationTest {
         // region 聚合操作
 
         // region 单一目的聚合方法
+
         // 计数
         mongoTemplate.count(new Query(), User.class);
         mongoTemplate.count(new Query(), "users");
@@ -348,7 +349,7 @@ public class MongoApplicationTest {
         mongoTemplate.find(basicQuery, User.class);
 
         Query fuzzyQuery = new BasicQuery("{name: {$regex: /c.*g.*I$/, $options: 'si'}}");
-        System.out.println("模糊匹配：" + mongoTemplate.find(fuzzyQuery, User.class));
+        mongoTemplate.find(fuzzyQuery, User.class);
 
         // 参数二指定查询的字段
         Query basicQuery1 = new BasicQuery("{$or: [{name: 'ccc'}, {name: 'aaa'}]}}}", "{age: true, name: true, _id: 0}");
