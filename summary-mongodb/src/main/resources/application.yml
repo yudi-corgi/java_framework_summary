@@ -15,3 +15,4 @@ spring:
       # password:
       # username:
       auto-index-creation: true   # 自动创建索引，搭配 @Index 和 @CompoundIndexes 注解使用
+      # replica-set-name:         # 指定副本集名称

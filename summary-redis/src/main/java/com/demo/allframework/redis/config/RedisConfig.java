@@ -1,12 +1,17 @@
 package com.demo.allframework.redis.config;
 
+import com.demo.allframework.redis.listener.MessageReceiver;
 import io.lettuce.core.ReadFrom;
 import org.springframework.boot.autoconfigure.data.redis.LettuceClientConfigurationBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
@@ -57,5 +62,44 @@ public class RedisConfig {
             }
         };
     }
+
+    /**
+     * 通过消息监听容器配置订阅信息
+     * @param factory         连接工厂
+     * @param messageListener 消息监听器
+     * @return 监听容器
+     */
+    @Bean
+    public RedisMessageListenerContainer container(RedisConnectionFactory factory,
+                                                   MessageListener messageListener, MessageListenerAdapter adapter) {
+
+        // 创建消息监听容器，并配置 Redis 连接工厂
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(factory);
+
+        // **** 方式一：通过消息监听器配置订阅信息
+
+        // 设置监听器与通道的映射
+        // container.addMessageListener(messageListener, new ChannelTopic("demo"));
+
+        // 模式订阅，* 是通配符，表示任意值，因此指定任意通道名称发送消息时，都会被对应监听器接收
+        // container.addMessageListener(messageListener, new PatternTopic("*"));
+
+        // **** 方式二：通过消息监听适配器配置订阅信息
+
+        container.addMessageListener(adapter, new ChannelTopic("demo"));
+
+        return container;
+    }
+
+    /**
+     * 消息监听适配器
+     */
+    @Bean
+    public MessageListenerAdapter adapter(MessageReceiver receiver) {
+        // 指定监听消息的对象和消息处理方法名，方法名默认是 handleMessage
+        return new MessageListenerAdapter(receiver, "receive");
+    }
+
 
 }
