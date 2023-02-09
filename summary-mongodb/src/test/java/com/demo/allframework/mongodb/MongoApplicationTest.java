@@ -345,14 +345,14 @@ public class MongoApplicationTest {
         // region JSON 语法查询
 
         // BasicQuery 子类可以使用任意 JSON 查询字符串设置查询条件
-        Query basicQuery = new BasicQuery("{$or: [{name: 'ccc'}, {name: 'aaa'}]}}}");
+        Query basicQuery = new BasicQuery("{$or: [{name: 'ccc'}, {name: 'aaa'}]}");
         mongoTemplate.find(basicQuery, User.class);
 
         Query fuzzyQuery = new BasicQuery("{name: {$regex: /c.*g.*I$/, $options: 'si'}}");
         mongoTemplate.find(fuzzyQuery, User.class);
 
         // 参数二指定查询的字段
-        Query basicQuery1 = new BasicQuery("{$or: [{name: 'ccc'}, {name: 'aaa'}]}}}", "{age: true, name: true, _id: 0}");
+        Query basicQuery1 = new BasicQuery("{$or: [{name: 'ccc'}, {name: 'aaa'}]}", "{age: true, name: true, _id: 0}");
         mongoTemplate.find(basicQuery1, User.class);
 
         // 通过 Document 指定查询条件，其本质是一个 Map
