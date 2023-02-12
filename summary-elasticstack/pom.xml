@@ -14,7 +14,12 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <elasticsearch.version>7.13.2</elasticsearch.version>
+        <!--
+            这里添加 ES 版本号是为了与部署的 ES 服务版本一致，避免出现不可知问题，
+            而 SpringDataES 中的 ES 依赖版本跟随 SpringBoot 版本变动而变动，
+            此处添加属性可覆盖 SpringDataES 中 ES 版本赋值，具体可看 SpringDataES 底层依赖
+        -->
+        <elasticsearch.version>7.11.2</elasticsearch.version>
     </properties>
 
     <dependencies>
@@ -38,6 +43,12 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-elasticsearch</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- HuTool -->
