@@ -12,7 +12,7 @@
 - [x] Netty（Netty 基础使用示例、WebSocket / UDP 示例）
 - [x] ShardingSphere-JDBC
 - [x] ElasticJob（底层依赖 Quartz）
-- [ ] <span style="text-decoration:line-through">XXL-Job（<span style="color:red">移除，不作引入</span>）</span>
+- [ ] ~~XXL-Job（<span style="color:red">移除，不作引入</span>）~~
 - [ ] 待补充...
 
 ### 数据库
