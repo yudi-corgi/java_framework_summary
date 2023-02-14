@@ -2,7 +2,11 @@ spring:
   data:
     elasticsearch:
       repositories:
-        enabled: true       # 启用 ES 存储库
-      # 以下两个属性配置 ES 节点为旧版配置，SpringDataES 官方推荐使用 Java 配置文件，详看 RestClientConfig.java
-      # cluster-name:       集群名称，默认 elasticsearch，
-      # cluster-nodes:      集群节点
+        enabled: true            # 启用 ES 本地存储库
+  # elasticsearch:
+   # rest:
+      #uris: localhost:9200      # 配置 ES 地址
+      # username: 123
+      # password: 123
+      # connection-timeout: 1000
+      # read-timeout: 30000
