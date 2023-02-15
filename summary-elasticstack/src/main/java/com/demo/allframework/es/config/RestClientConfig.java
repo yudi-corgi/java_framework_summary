@@ -9,6 +9,7 @@ import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.http.HttpHeaders;
+import org.springframework.lang.NonNull;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 public class RestClientConfig extends AbstractElasticsearchConfiguration {
 
     @Override
+    @NonNull
     public RestHighLevelClient elasticsearchClient() {
         // 创建客户端配置，通过该配置类可获取客户端的配置信息
         final ClientConfiguration config = ClientConfiguration.builder()
