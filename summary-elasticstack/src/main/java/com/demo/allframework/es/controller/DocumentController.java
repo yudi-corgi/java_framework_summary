@@ -80,7 +80,7 @@ public class DocumentController {
             doc.setIdCard(i + 3000 + "");
             doc.setAddress("地址不详" + i);
             doc.setHobby(new String[]{ "钢琴", "古筝", "萧" });
-            doc.setSingle(i - 7 > 0);
+            doc.setSingle(i - 30 > 0);
             doc.setCreateTime(LocalDateTime.now());
             doc.setUpdateTime(LocalDateTime.now());
             userDocs.add(doc);
