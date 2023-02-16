@@ -1,5 +1,6 @@
 package com.demo.allframework.es.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
@@ -36,9 +37,11 @@ public class UserDoc {
     private String[] hobby;
     @Field(name = "single", type = FieldType.Boolean)
     private Boolean single;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Field(name = "createTime", type = FieldType.Date, format = {}, pattern="yyyy-MM-dd HH:mm:ss.SSS")
     private LocalDateTime createTime;
-    @Field(name = "updateTime", type = FieldType.Date)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Field(name = "updateTime", type = FieldType.Date, format = DateFormat.date_hour_minute_second)
     private LocalDateTime updateTime;
     /**
      * Key 需要为字符串才会被 ES 识别

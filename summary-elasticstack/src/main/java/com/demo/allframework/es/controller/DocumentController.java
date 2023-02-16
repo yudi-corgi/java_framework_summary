@@ -3,7 +3,8 @@ package com.demo.allframework.es.controller;
 import com.demo.allframework.es.entity.UserDoc;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.data.elasticsearch.core.MultiGetItem;
+import org.springframework.data.elasticsearch.core.SearchHit;
+import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.document.Document;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.*;
@@ -38,9 +39,8 @@ public class DocumentController {
 
     @GetMapping("/all")
     public List<UserDoc> getAll() {
-        List<MultiGetItem<UserDoc>> allUserDocItems = esTemplate.multiGet(new NativeSearchQueryBuilder()
-                .withQuery(QueryBuilders.matchAllQuery()).build(), UserDoc.class, IndexCoordinates.of("user_doc"));
-        return allUserDocItems.stream().map(MultiGetItem::getItem).collect(Collectors.toList());
+        SearchHits<UserDoc> all = esTemplate.search(new NativeSearchQueryBuilder().withQuery(QueryBuilders.matchAllQuery()).build(), UserDoc.class);
+        return all.stream().map(SearchHit::getContent).collect(Collectors.toList());
     }
 
     @PutMapping
@@ -70,7 +70,7 @@ public class DocumentController {
     @PutMapping("/batch")
     public void batchCreate() {
         List<UserDoc> userDocs = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 20; i < 40; i++) {
             UserDoc doc = new UserDoc();
             doc.setId(i + "");
             doc.setName("Hello" + (i + 100));
@@ -133,6 +133,7 @@ public class DocumentController {
     @DeleteMapping("/byAge")
     public void deleteByAge() {
         // 删除 age>=28 的文档
+        // TODO 报错
         NativeSearchQuery nsqAge = new NativeSearchQueryBuilder().withQuery(QueryBuilders.rangeQuery("age").gte(28)).build();
         ByQueryResponse res = esTemplate.delete(nsqAge, UserDoc.class);
         System.out.println("删除的条数：" + res.getDeleted());
@@ -140,6 +141,7 @@ public class DocumentController {
 
     @DeleteMapping("/all")
     public void deleteAll() {
+        // TODO 报错
         NativeSearchQuery nsq = new NativeSearchQueryBuilder().withQuery(QueryBuilders.matchAllQuery()).build();
         ByQueryResponse res = esTemplate.delete(nsq, UserDoc.class);
         System.out.println("删除的条数：" + res.getDeleted());
