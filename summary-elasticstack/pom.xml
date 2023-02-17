@@ -19,7 +19,7 @@
             而 SpringDataES 中的 ES 依赖版本跟随 SpringBoot 版本变动而变动，
             此处添加属性可覆盖 SpringDataES 中 ES 版本赋值，具体可看 SpringDataES 底层依赖
         -->
-        <elasticsearch.version>7.11.2</elasticsearch.version>
+        <elasticsearch.version>7.15.2</elasticsearch.version>
     </properties>
 
     <dependencies>
