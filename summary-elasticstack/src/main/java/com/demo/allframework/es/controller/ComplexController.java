@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author YUDI-Corgi
- * @description 文档复杂查询 TODO 待补充
+ * @description 文档复杂查询
  */
 @RestController
 @RequestMapping("/complex")
@@ -77,6 +77,7 @@ public class ComplexController {
 
     @GetMapping("/collapse")
     public List<UserDoc> collapse() {
+        // collapse：折叠，也就是去重
         NativeSearchQueryBuilder nsq = new NativeSearchQueryBuilder();
         FieldSortBuilder fsb = SortBuilders.fieldSort("age").order(SortOrder.DESC);
         NativeSearchQuery query = nsq.withQuery(QueryBuilders.matchAllQuery())

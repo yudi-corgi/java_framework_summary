@@ -133,7 +133,6 @@ public class DocumentController {
     @DeleteMapping("/byAge")
     public void deleteByAge() {
         // 删除 age>=28 的文档
-        // TODO 报错
         NativeSearchQuery nsqAge = new NativeSearchQueryBuilder().withQuery(QueryBuilders.rangeQuery("age").gte(28)).build();
         ByQueryResponse res = esTemplate.delete(nsqAge, UserDoc.class);
         System.out.println("删除的条数：" + res.getDeleted());
@@ -141,7 +140,6 @@ public class DocumentController {
 
     @DeleteMapping("/all")
     public void deleteAll() {
-        // TODO 报错
         NativeSearchQuery nsq = new NativeSearchQueryBuilder().withQuery(QueryBuilders.matchAllQuery()).build();
         ByQueryResponse res = esTemplate.delete(nsq, UserDoc.class);
         System.out.println("删除的条数：" + res.getDeleted());

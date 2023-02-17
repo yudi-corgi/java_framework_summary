@@ -26,10 +26,9 @@ public class IndexController {
         information.forEach(i -> {
             System.out.println("索引名称：" + i.getName());
             System.out.println("索引设置（分片、副本等）：" + i.getSettings());
-            System.out.println("索引映射（文档）：" + i.getMapping().toJson());
+            System.out.println("索引映射（文档）：" + i.getMapping());
             System.out.println("索引别名：" + i.getAliases());
         });
-
     }
 
     @GetMapping("/all")
