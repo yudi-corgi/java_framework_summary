@@ -39,7 +39,16 @@ public class DocumentController {
 
     @GetMapping("/all")
     public List<UserDoc> getAll() {
-        SearchHits<UserDoc> all = esTemplate.search(new NativeSearchQueryBuilder().withQuery(QueryBuilders.matchAllQuery()).build(), UserDoc.class);
+        NativeSearchQueryBuilder nsq = new NativeSearchQueryBuilder();
+        // 当 includes / excludes 指定了相同字段，后者优先级较高，即排除字段
+        // 但是若两者指定了不同字段，excludes 就没有了效果，因为 includes 语义就表示除了指定的字段，其它字段都不要查询
+        FetchSourceFilterBuilder source = new FetchSourceFilterBuilder();
+        // 排除指定字段
+        source.withExcludes("age");
+        // 查询指定字段
+        source.withIncludes("name");
+        nsq.withSourceFilter(source.build());
+        SearchHits<UserDoc> all = esTemplate.search(nsq.withQuery(QueryBuilders.matchAllQuery()).build(), UserDoc.class);
         return all.stream().map(SearchHit::getContent).collect(Collectors.toList());
     }
 

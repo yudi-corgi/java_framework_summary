@@ -38,7 +38,7 @@ public class ComplexController {
         /*
           嵌套 Bool 查询条件，bqq 的查询条件会内套在 nested 中
           同个查询对象 must 调用效果如下：
-          match: [
+          must: [
             "match": { "age": 14},
             "bool": {
                "should": { "name": "hello107" }
