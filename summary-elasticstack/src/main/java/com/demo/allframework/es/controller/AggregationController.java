@@ -157,7 +157,7 @@ public class AggregationController {
         List<? extends Histogram.Bucket> buckets = hisAgg.getBuckets();
         for (int i = 0; i < buckets.size(); i++) {
             String from = buckets.get(i).getKeyAsString();
-            String to = i != buckets.size() - 1 ? to = buckets.get(i + 1).getKeyAsString() : "+∞";
+            String to = i != buckets.size() - 1 ? buckets.get(i + 1).getKeyAsString() : "+∞";
             System.out.println("年龄在 " + from + " - " + to + " 的文档数: " + buckets.get(i).getDocCount());
         }
 
