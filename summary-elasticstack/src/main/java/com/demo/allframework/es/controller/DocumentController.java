@@ -3,6 +3,7 @@ package com.demo.allframework.es.controller;
 import com.demo.allframework.es.entity.UserDoc;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.core.ScriptType;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.document.Document;
@@ -132,6 +133,32 @@ public class DocumentController {
             updateList.add(UpdateQuery.builder(i + "").withDocument(doc).build());
         }
         esTemplate.bulkUpdate(updateList, UserDoc.class);
+    }
+
+    @PostMapping("/updateByQuery")
+    public void updateByQuery() {
+        // 指定查询条件，age > 25 的文档才会被更新
+        NativeSearchQueryBuilder nsq = new NativeSearchQueryBuilder();
+        nsq.withQuery(QueryBuilders.rangeQuery("age").gt(25));
+        UpdateQuery.Builder update = UpdateQuery.builder(nsq.build());
+
+        // 官方示例：https://github.com/spring-projects/spring-data-elasticsearch/blob/4.2.x/src/test/java/org/springframework/data/elasticsearch/core/ElasticsearchTemplateTests.java
+        // ScriptType.STORED 则会使用集群中已存储的脚本，通过名称指定要使用的脚本即可
+        // update.withScriptType(ScriptType.INLINE).withScriptName("name").build();
+        // INLINE 方式需要指定脚本，脚本会实时编译然后缓存起来
+        update.withScriptType(ScriptType.INLINE)
+                // 当文档 version 冲突时是否中止操作
+                .withAbortOnVersionConflict(true)
+                // 脚本语言，其它可选值：expression（Lucene 脚本语言）、mustache（搜索模板使用）
+                .withLang("painless")
+                // 脚本，不带参数，直接指定 k=v
+                // .withScript("ctx._source.name='按条件更新名称'");
+                // 脚本，带参数
+                .withScript("ctx._source['name']= params['afterName']")
+                // 指定参数变量，需要与脚本中的参数名对应
+                .withParams(Collections.singletonMap("afterName", "什么鬼"));
+        ByQueryResponse res = esTemplate.updateByQuery(update.build(), IndexCoordinates.of("user_doc"));
+        System.out.println(res);
     }
 
     @DeleteMapping("/{id}")
