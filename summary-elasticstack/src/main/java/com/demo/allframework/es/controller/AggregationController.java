@@ -2,8 +2,11 @@ package com.demo.allframework.es.controller;
 
 import com.demo.allframework.es.entity.UserDoc;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.global.GlobalAggregationBuilder;
+import org.elasticsearch.search.aggregations.bucket.global.ParsedGlobal;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.elasticsearch.search.aggregations.bucket.histogram.ParsedDateHistogram;
@@ -12,7 +15,9 @@ import org.elasticsearch.search.aggregations.bucket.range.ParsedDateRange;
 import org.elasticsearch.search.aggregations.bucket.range.ParsedRange;
 import org.elasticsearch.search.aggregations.bucket.terms.ParsedLongTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.aggregations.metrics.*;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.clients.elasticsearch7.ElasticsearchAggregations;
@@ -193,6 +198,43 @@ public class AggregationController {
             Aggregations agg = b.getAggregations();
             ParsedMax docUpdate = agg.get("doc_update");
             System.out.println("age - " + b.getKeyAsString() + " 的文档中最近一条更新时间为：" + docUpdate.getValueAsString());
+        });
+    }
+
+    @GetMapping("/topHits")
+    public void topHits() {
+        // 结果分组：topHits，根据 term 聚集、且根据 age 倒序，获取最新两篇文档
+        TermsAggregationBuilder aggBuilder = AggregationBuilders.terms("term_agg").field("single")
+                .subAggregation(AggregationBuilders.topHits("top_agg").size(2).sort("age", SortOrder.DESC));
+        NativeSearchQueryBuilder nsq = new NativeSearchQueryBuilder();
+        SearchHits<UserDoc> search = esTemplate.search(nsq.withAggregations(aggBuilder).build(), UserDoc.class);
+        ElasticsearchAggregations container = (ElasticsearchAggregations) search.getAggregations();
+        assert container != null;
+        ParsedLongTerms termAgg = container.aggregations().get("term_agg");
+        termAgg.getBuckets().forEach(b -> {
+            System.out.println("分组 key（single）：" + b.getKeyAsString());
+            ParsedTopHits topAgg = b.getAggregations().get("top_agg");
+            for (SearchHit hit : topAgg.getHits()) {
+                System.out.println("top 文档：" + hit.getSourceAsString());
+            }
+        });
+    }
+
+    @GetMapping("/globalAgg")
+    public void globalAgg() {
+        // 指定全局聚集，不受 query 条件查询的影响
+        GlobalAggregationBuilder globalAggBuilder = AggregationBuilders.global("global_agg")
+                .subAggregation(AggregationBuilders.range("range_agg").field("age").addRange(20, 40));
+        NativeSearchQueryBuilder nsq = new NativeSearchQueryBuilder();
+        nsq.withQuery(QueryBuilders.termQuery("age", 3)).withAggregations(globalAggBuilder);
+        SearchHits<UserDoc> search = esTemplate.search(nsq.build(), UserDoc.class);
+        System.out.println("搜索查询的文档数：" + search.getSearchHits().size());
+        ElasticsearchAggregations container = (ElasticsearchAggregations) search.getAggregations();
+        assert container != null;
+        ParsedGlobal globalAgg = container.aggregations().get("global_agg");
+        ParsedRange rangeAgg = globalAgg.getAggregations().get("range_agg");
+        rangeAgg.getBuckets().forEach(b -> {
+            System.out.println("年龄在 20~40 的文档数（不受 query 查询影响）：" + b.getDocCount());
         });
     }
 
