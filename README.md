@@ -19,7 +19,7 @@
 - [x] MySql
 - [x] Redis：未记录基础操作，仅包含 pub/sub、读写分离、集群配置（集群主要在于服务配置）
 - [x] MongoDB：索引、文档 CRUD 及聚合操作，位于 test 包下
-- [ ] ElasticSearch
+- [x] ElasticSearch
 
 ### 前端框架
 - [x] Thymeleaf
