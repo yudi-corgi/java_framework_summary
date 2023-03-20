@@ -18,6 +18,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -91,7 +92,7 @@ public class ComplexController {
     }
 
     @GetMapping("/geoDistance")
-    public List<UserDoc> geoDistance() {
+    public List<UserDoc> geoDistance(@RequestParam("lat") Double lat, @RequestParam("lng") Double lng) {
         NativeSearchQueryBuilder nsq = new NativeSearchQueryBuilder();
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
         // 指定 Geo 字段名
@@ -100,13 +101,13 @@ public class ComplexController {
         // ARC：弧形计算，将地球当作球面计算距离，较为准确
         location.geoDistance(GeoDistance.ARC);
         // 指定当前位置
-        location.point(23.111, 112.123);
+        location.point(lat, lng);
         // 以指定位置为中心的圆的半径，落在该圆圈内的点都是匹配的，此处指定 3km
         location.distance("3", DistanceUnit.KILOMETERS);
         // location.distance("12km"); 或者直接写距离+单位
         boolQuery.filter(location);
         // 构建地理排序
-        GeoDistanceSortBuilder sort = new GeoDistanceSortBuilder("location", 23.111, 112.123);
+        GeoDistanceSortBuilder sort = new GeoDistanceSortBuilder("location", lat, lng);
         sort.unit(DistanceUnit.KILOMETERS).order(SortOrder.ASC);
 
         NativeSearchQuery build = nsq.withQuery(boolQuery).withSorts(sort).build();
