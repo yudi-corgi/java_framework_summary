@@ -1,9 +1,13 @@
 package com.demo.allframework.es.controller;
 
 import com.demo.allframework.es.entity.UserDoc;
+import org.elasticsearch.common.geo.GeoDistance;
+import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.GeoDistanceQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.GeoDistanceSortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.data.domain.PageRequest;
@@ -84,6 +88,57 @@ public class ComplexController {
                 .withCollapseField("age").withSorts(fsb).build();
         SearchHits<UserDoc> collapse = esTemplate.search(query, UserDoc.class);
         return collapse.stream().map(SearchHit::getContent).collect(Collectors.toList());
+    }
+
+    @GetMapping("/geoDistance")
+    public List<UserDoc> geoDistance() {
+        NativeSearchQueryBuilder nsq = new NativeSearchQueryBuilder();
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        // 指定 Geo 字段名
+        GeoDistanceQueryBuilder location = new GeoDistanceQueryBuilder("geoCity");
+        // 可填 PLANE：按平面计算距离，速度快，但在两极会不准确
+        // ARC：弧形计算，将地球当作球面计算距离，较为准确
+        location.geoDistance(GeoDistance.ARC);
+        // 指定当前位置
+        location.point(23.111, 112.123);
+        // 以指定位置为中心的圆的半径，落在该圆圈内的点都是匹配的，此处指定 3km
+        location.distance("3", DistanceUnit.KILOMETERS);
+        // location.distance("12km"); 或者直接写距离+单位
+        boolQuery.filter(location);
+        // 构建地理排序
+        GeoDistanceSortBuilder sort = new GeoDistanceSortBuilder("location", 23.111, 112.123);
+        sort.unit(DistanceUnit.KILOMETERS).order(SortOrder.ASC);
+
+        NativeSearchQuery build = nsq.withQuery(boolQuery).withSorts(sort).build();
+        SearchHits<UserDoc> geo = esTemplate.search(build, UserDoc.class);
+        return geo.stream().map(SearchHit::getContent).collect(Collectors.toList());
+    }
+
+    /**
+     * 计算两点距离
+     * @param latitudeA  A 地点纬度
+     * @param longitudeA A 地点经度
+     * @param latitudeB  B 地点纬度
+     * @param longitudeB B 地点经度
+     * @return 两点距离
+     */
+    public static double getDistance(double latitudeA, double longitudeA, double latitudeB, double longitudeB) {
+        // 经度
+        double lat1 = Math.toRadians(longitudeA);
+        double lat2 = Math.toRadians(longitudeB);
+        // 纬度
+        double lng1 = Math.toRadians(latitudeA);
+        double lng2 = Math.toRadians(latitudeB);
+        // 经度之差
+        double a = lat1 - lat2;
+        // 纬度之差
+        double b = lng1 - lng2;
+        // 计算两点距离的公式
+        double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
+                Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(b / 2), 2)));
+        // 弧长乘地球半径, 返回单位: 千米
+        s =  s * 6356.9088;
+        return s;
     }
 
 }

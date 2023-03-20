@@ -48,4 +48,11 @@ public class UserDoc {
      */
     @Field(name = "otherFieldMap")
     private Map<String, Object> otherFieldMap;
+    /**
+     * geo_point 类型字段，使用 @GeoPointField 标注
+     * PS：SpringDataES 初次动态映射地理字段到索引文档时会变成嵌套文档 float 类型，
+     * 因此需要通过 API 或 esTemplate.indexOps(entity.class).create 先行创建索引
+     */
+    @GeoPointField
+    private GeoPointField geoCity;
 }
