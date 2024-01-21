@@ -29,6 +29,7 @@
         <module>summary-rocketmq</module>
         <module>summary-redis</module>
         <module>summary-mongodb</module>
+        <module>summary-flink</module>
     </modules>
 
     <properties>
