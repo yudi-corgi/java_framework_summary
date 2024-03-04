@@ -40,7 +40,7 @@
 		<commons.collections.version>3.2.2</commons.collections.version>
 		<commons.beanutils.version>1.9.4</commons.beanutils.version>
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
-        <mysql.version>8.0.21</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <jackson.version>2.14.1</jackson.version>
         <fastjoin.version>2.0.19</fastjoin.version>
         <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
