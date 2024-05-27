@@ -52,7 +52,7 @@
         <rocket-mq.version>4.9.2</rocket-mq.version>
         <rocket-mq.spring-boot.version>2.2.1</rocket-mq.spring-boot.version>
         <lombok.version>1.18.12</lombok.version>
-        <hutool.version>5.8.12</hutool.version>
+        <hutool.version>5.8.21</hutool.version>
     </properties>
 
     <dependencyManagement>
