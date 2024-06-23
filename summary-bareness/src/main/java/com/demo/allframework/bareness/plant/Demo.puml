@@ -1,0 +1,47 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+'此项是官方可用的主题配置
+'!theme crt-green
+
+'!include https://fossies.org/linux/plantuml/themes/puml-theme-mars.puml
+'!theme solar from https://github.com/bschwarz/puml-themes/tree/master/themes
+
+
+split
+  -[hidden]->
+  start
+  :Apply;
+
+:test process one ;
+:test process two ;
+
+split again
+  -[hidden]->
+  start
+  :Retry;
+if (isOk?) then (Y)
+  :can do something;
+  else (no)
+'  #red:update data error;
+'  kill
+endif
+
+split again
+  -[hidden]->
+  start
+  :Process;
+  if (check condition) is (yes) then
+    :todo;
+  else
+    :xxx;
+endif
+
+end split
+
+:C;
+:D;
+
+
+stop
+
+@enduml
