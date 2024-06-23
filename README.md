@@ -7,7 +7,7 @@
 ### 后端框架
 - [x] SpringBoot
 - [x] SpringSecurity（JWT）
-- [x] Mybatis
+- [x] MyBatis
 - [ ] Shiro
 - [x] Netty（Netty 基础使用示例、WebSocket / UDP 示例）
 - [x] ShardingSphere-JDBC
