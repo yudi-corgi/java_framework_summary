@@ -30,6 +30,7 @@
         <module>summary-redis</module>
         <module>summary-mongodb</module>
         <module>summary-flink</module>
+        <module>summary-bareness</module>
     </modules>
 
     <properties>

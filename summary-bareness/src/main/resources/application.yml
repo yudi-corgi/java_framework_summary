@@ -1,0 +1,6 @@
+spring:
+  application:
+      name: bareness
+  # 创建的 i18n 资源包位置，默认是 messages
+  messages:
+      basename: i18n/messages
