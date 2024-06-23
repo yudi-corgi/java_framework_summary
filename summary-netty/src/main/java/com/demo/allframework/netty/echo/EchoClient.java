@@ -56,7 +56,6 @@ public class EchoClient {
                     });
             // 3. 阻塞连接直到完成
             ChannelFuture cf = b.connect().sync();
-            Channel c = cf.channel();
             // 4. 阻塞到 Channel 关闭并返回 CloseFuture（ChannelFuture 子类）
             cf.channel().closeFuture().sync();
         }finally {
