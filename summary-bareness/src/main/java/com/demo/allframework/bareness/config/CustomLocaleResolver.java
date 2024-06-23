@@ -49,6 +49,7 @@ public class CustomLocaleResolver implements LocaleResolver {
             String[] info = lang.split("-");
 
             // 参数分别为语言、国家
+            // 如果设置的语言环境在 i18n 目录下没有对应的配置文件，则默认取主机环境的语言对象
             locale = new Locale(info[0], info[1]);
 
         }
