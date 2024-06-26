@@ -51,7 +51,7 @@ public class CustomLocaleResolver implements LocaleResolver {
             // 参数分别为语言、国家
             // 如果设置的语言环境在 i18n 目录下没有对应的配置文件，则默认取主机环境的语言对象
             locale = new Locale(info[0], info[1]);
-
+            // locale = Locale.forLanguageTag(lang);
         }
 
         return locale;
@@ -65,6 +65,6 @@ public class CustomLocaleResolver implements LocaleResolver {
      */
     @Override
     public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale locale) {
-
+        request.setAttribute("lang", locale);
     }
 }
