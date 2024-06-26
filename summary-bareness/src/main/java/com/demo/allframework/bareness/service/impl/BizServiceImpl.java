@@ -37,6 +37,6 @@ public class BizServiceImpl implements IBizService {
 
     @Override
     public void delete() {
-
+        System.out.println("Delete any data.");
     }
 }
