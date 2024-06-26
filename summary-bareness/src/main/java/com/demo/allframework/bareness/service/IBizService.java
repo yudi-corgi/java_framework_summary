@@ -5,9 +5,9 @@ import com.demo.allframework.bareness.entity.TestDTO;
 
 public interface IBizService {
 
-    TestDTO select();
+    TestDTO select(Long id);
 
-    Long create();
+    Long create(TestDTO request);
 
     void update();
 
