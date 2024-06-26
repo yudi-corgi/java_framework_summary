@@ -63,6 +63,9 @@ public class DemoControllerTest {
         System.out.println(mvcResult.getRequest());
         System.out.println(mvcResult.getResponse());
 
+        bizService.select(1L);
+
+        // 校验 bizService#select 是否被调用一次并且入参类型为 Long
         verify(bizService, times(1)).select(ArgumentMatchers.anyLong());
 
     }
@@ -75,7 +78,10 @@ public class DemoControllerTest {
 
         // when 是非 void 返回值的方法存根，thenReturn 会让方法调用固定返回指定的值
         // isA 表示调用 create 时匹配的参数类型为指定类型时，存根才会生效
-        when(bizService.create(isA(TestDTO.class))).thenReturn(5L);
+        // 但是这种方式在使用 @SpyBean 注入对象时会去执行实际代码，然而因为没有入参，会导致 NPE
+        // when(bizService.create(any(TestDTO.class))).thenReturn(5L);
+        // 正确做法如下：
+        doReturn(5L).when(bizService).create(any());
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                         .post(CONTROLLER_URL.concat("/post"))
