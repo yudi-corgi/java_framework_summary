@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -34,7 +34,9 @@ public class DemoControllerTest {
 
     @Resource
     private MockMvc mockMvc;
-    @MockBean
+
+    // @MockBean 与 @SpyBean 区别：前者是 Mockito mock 的对象，使用时并不会真实调用其方法，后者则会真实监听调用
+    @SpyBean
     private IBizService bizService;
 
     @BeforeAll
@@ -71,11 +73,8 @@ public class DemoControllerTest {
         TestDTO request = new TestDTO().setId(1L).setText("测试额呢绒").setAmount(BigDecimal.TEN)
                 .setNumber(6972).setCollection(List.of("banana"));
 
-        // doNothing 是 bizService.create 方法调用的存根
-        // doNothing 的作用是让返回值为 void 的方法不执行任何操作，简单说就是不执行方法里的代码
-        // 存根的意思是把 doNothing 的效果放在方法首次调用后，如果有多个存根，那么排序生效
-        // doNothing().doThrow(new RuntimeException("存根二报错")).when(bizService).create(isA(TestDTO.class));
-
+        // when 是非 void 返回值的方法存根，thenReturn 会让方法调用固定返回指定的值
+        // isA 表示调用 create 时匹配的参数类型为指定类型时，存根才会生效
         when(bizService.create(isA(TestDTO.class))).thenReturn(5L);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
@@ -91,7 +90,20 @@ public class DemoControllerTest {
     }
 
     @Test
-    public void delete() {
+    public void delete() throws Exception {
+        // doNothing 是 bizService.delete 方法调用的存根
+        // doNothing 的作用是让返回值为 void 的方法不执行任何操作，简单说就是不执行方法里的代码
+        // 存根的意思是把 doNothing 的效果在方法首次调用后，如果有多个存根，那么排序生效
+        doNothing().when(bizService).delete();
+        bizService.delete();
+        bizService.delete();
+
+
+        // mockMvc.perform(MockMvcRequestBuilders
+        //         .delete(CONTROLLER_URL.concat("/delete"))
+        //         .contentType(MediaType.APPLICATION_JSON))
+        //         .andExpect(status().isOk())
+        //         .andDo(print());
 
     }
 
