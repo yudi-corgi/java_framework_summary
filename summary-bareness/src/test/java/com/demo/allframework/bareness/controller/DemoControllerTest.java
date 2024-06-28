@@ -1,8 +1,8 @@
 package com.demo.allframework.bareness.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.demo.allframework.bareness.entity.TestDTO;
 import com.demo.allframework.bareness.service.IBizService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -34,6 +34,8 @@ public class DemoControllerTest {
 
     @Resource
     private MockMvc mockMvc;
+    @Resource
+    private ObjectMapper objectMapper;
 
     // @MockBean 与 @SpyBean 区别：前者是 Mockito mock 的对象，使用时并不会真实调用其方法，后者则会真实监听调用
     @SpyBean
@@ -86,7 +88,7 @@ public class DemoControllerTest {
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                         .post(CONTROLLER_URL.concat("/post"))
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(JSON.toJSONString(request)))
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andDo(print()).andReturn();
 
