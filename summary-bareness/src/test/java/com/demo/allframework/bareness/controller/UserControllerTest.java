@@ -41,6 +41,14 @@ public class UserControllerTest {
 
     @Test
     public void findById() throws Exception {
+
+        User user = new User();
+        user.setId(1L);
+        user.setName("EEEE");
+        user.setAge(13);
+        user.setBirthday(LocalDateTime.now());
+        when(userRepository.findById(anyLong())).thenReturn(user);
+
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                         .get(CONTROLLER_URL.concat("findById"))
                         .param("id", "1")
