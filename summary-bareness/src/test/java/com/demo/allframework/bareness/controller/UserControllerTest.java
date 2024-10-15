@@ -32,10 +32,8 @@ public class UserControllerTest {
 
     @Resource
     private MockMvc mockMvc;
-
     @Resource
     private ObjectMapper objectMapper;
-
     @SpyBean
     private UserService userService;
     @MockBean
@@ -43,6 +41,14 @@ public class UserControllerTest {
 
     @Test
     public void findById() throws Exception {
+
+        User user = new User();
+        user.setId(1L);
+        user.setName("EEEE");
+        user.setAge(13);
+        user.setBirthday(LocalDateTime.now());
+        when(userRepository.findById(anyLong())).thenReturn(user);
+
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                         .get(CONTROLLER_URL.concat("findById"))
                         .param("id", "1")
@@ -63,6 +69,7 @@ public class UserControllerTest {
 
         User user = new User().setId(5L).setAge(22).setName("WWWW").setBirthday(LocalDateTime.now());
         // userService.save(user);
+        when(userRepository.save(isA(User.class))).thenReturn(1);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                         .post(CONTROLLER_URL.concat("save"))

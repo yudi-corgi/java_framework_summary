@@ -62,8 +62,9 @@ public class DemoControllerTest {
 
     @BeforeAll
     static void setup() {
-        // @BeforeAll 指示该方法在当前测试类的所有方法执行前有且仅执行一次
+        // @BeforeAll 指示该方法在当前测试类的测试方法执行前有且仅执行一次
         // @BeforeEach 指示该方法在当前测试类的所有方法执行前都会先执行一次
+        System.out.println("执行一次");
     }
 
     @Test
