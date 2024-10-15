@@ -2,8 +2,10 @@ package com.demo.allframework.bareness.service.impl;
 
 import com.demo.allframework.bareness.entity.TestDTO;
 import com.demo.allframework.bareness.service.IBizService;
+import com.demo.allframework.bareness.service.UserService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,9 @@ import java.util.Map;
 public class BizServiceImpl implements IBizService {
 
     private final Map<Long, TestDTO> DATA_SOURCE = new HashMap<>(16);
+
+    @Resource
+    private UserService userService;
 
     @Override
     public TestDTO select(Long id) {
