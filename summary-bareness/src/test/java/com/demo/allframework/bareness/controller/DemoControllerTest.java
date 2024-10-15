@@ -2,10 +2,14 @@ package com.demo.allframework.bareness.controller;
 
 import com.demo.allframework.bareness.entity.TestDTO;
 import com.demo.allframework.bareness.service.IBizService;
+import com.demo.allframework.bareness.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -40,6 +44,21 @@ public class DemoControllerTest {
     // @MockBean 与 @SpyBean 区别：前者是 Mockito mock 的对象，使用时并不会真实调用其方法，后者则会真实监听调用
     @SpyBean
     private IBizService bizService;
+
+    /**
+     * <code>@InjectMocks</code> 与 <code>@SpyBean</code> 相反，后者是注解的对象获取的实例，是本身及其依赖的真实对象的包装，
+     * 而前者是相当于创建了一个新对象，然后依靠 @Spy、@Mock 两个注解来指定要注入该对象的依赖
+     */
+    @InjectMocks
+    private IBizService injectService;
+    /**
+     * <code>@Spy</code> 和 <code>@Mock</code> 的 UserService 将会注入到 IBizService 中，
+     * 多个 <code>@InjectMocks</code> 注解的对象若有相同的依赖，都会进行注入
+     */
+    @Spy
+    @Mock
+    private UserService userService;
+
 
     @BeforeAll
     static void setup() {
