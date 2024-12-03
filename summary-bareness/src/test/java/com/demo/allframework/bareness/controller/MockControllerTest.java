@@ -18,7 +18,17 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
+ * <p>
  * 指定测试类的声明周期，默认为 PER_METHOD，即每个测试方法执行前都会创建一个新的测试实例，PER_CLASS 为整个测试类执行前创建一个新的测试实例。
+ * </p>
+ * <p>
+ * 但并不推荐这么做，因为共用一个测试实例，每个 Mock 对象调用方法次数在不同的测试方法中是会累加的，即同样的方法，在测试 A 方法和测试 B 方法中
+ * 都调用了，总调用次数是 2，而 verify() 校验方法默认是验证调用次数 1，因此如果有重复调用方法的地方可能出现次数调用验证不通过。
+ * </p>
+ * <div>推荐：
+ * <p>在构造器或 @BeforeEach 注解方法中开启 openMocks(this)；</p>
+ * <p>或者在清楚哪个 Mock 对象被重复调用时，可以在 @BeforeEach 方法中使用 Mockito.reset(mockObject) 重置调用次数。</p>
+ * </div>
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MockControllerTest {
