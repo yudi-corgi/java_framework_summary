@@ -8,7 +8,7 @@
 - [x] SpringBoot
 - [x] SpringSecurity（JWT）
 - [x] MyBatis
-- [ ] Shiro
+- [ ] ~~Shiro~~
 - [x] Netty（Netty 基础使用示例、WebSocket / UDP 示例）
 - [x] ShardingSphere-JDBC
 - [x] ElasticJob（底层依赖 Quartz）
