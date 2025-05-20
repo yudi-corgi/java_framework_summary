@@ -40,4 +40,36 @@
         </dependency>
     </dependencies>
 
+    <scm>
+        <!-- 假设你的 Git 仓库地址是这个，请替换成你实际的地址 -->
+        <!-- connection 是只读连接，developerConnection 是读写连接 -->
+        <connection>scm:git:git@github.com:yudi-corgi/java_framework_summary.git</connection>
+        <developerConnection>scm:git:git@github.com:yudi-corgi/java_framework_summary.git</developerConnection>
+        <!-- url 是你的项目在 Git 仓库的 Web 浏览地址 -->
+        <url>https://github.com/yudi-corgi/java_framework_summary</url>
+        <!-- tag 告诉 release 插件当前 HEAD 是什么，它会基于此创建新 tag -->
+        <tag>HEAD</tag>
+    </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <!-- release:perform 阶段执行的目标 -->
+                    <goals>clean package</goals>
+                    <!-- 确保所有子模块版本都被处理 -->
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <!-- 默认 true，是否在 release:prepare 阶段自动推送到远程 Git 仓库 -->
+                    <pushChanges>false</pushChanges>
+                    <!-- 自定义生成的 Git 标签 -->
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <!-- 传递给 Maven 的构建参数 -->
+                    <arguments>-DskipTests</arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
